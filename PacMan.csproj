@@ -48,6 +48,9 @@
   <ItemGroup>
     <Compile Include="Architecture\IField.cs" />
     <Compile Include="Architecture\PacManWindow.cs" />
+    <Compile Include="Fields\SimpleField.cs" />
+    <Compile Include="Fields\VoidField.cs" />
+    <Compile Include="Fields\Wall.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +58,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -79,6 +83,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
