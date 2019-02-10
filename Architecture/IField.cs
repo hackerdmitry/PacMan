@@ -1,6 +1,6 @@
 ﻿namespace PacMan
 {
-    interface IField
+    public interface IField
     {
     }
 }

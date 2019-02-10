@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Architecture\IField.cs" />
+    <Compile Include="Architecture\PacManWindow.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
