@@ -1,0 +1,6 @@
+﻿namespace PacMan
+{
+    interface IField
+    {
+    }
+}
