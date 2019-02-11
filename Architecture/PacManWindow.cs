@@ -25,7 +25,7 @@ namespace PacMan
             for (int i = 0; i < charFields.GetLength(0); i++)
                 for (int j = 0; j < charFields.GetLength(1); j++)
                     charFields[i, j] = notParsedMap[i][j];
-            gameController = new GameController(new Map(charFields));
+            gameController = new GameController(this, new Map(charFields));
             Width = Map.LENGTH_CELL * gameController.Map.Width + FrameSize.Width;
             Height = Map.LENGTH_CELL * gameController.Map.Height + FrameSize.Height;
             Timer timer = new Timer

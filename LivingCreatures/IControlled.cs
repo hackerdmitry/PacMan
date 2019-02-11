@@ -5,6 +5,6 @@ namespace PacMan
         Direction CurrentDirection { get; }
         
         Position AccuratePosition { get; }
-        Position PositionRegardingMapCells { get; }
+//        Position PositionRegardingMapCells { get; }
     }
 }
