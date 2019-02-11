@@ -8,8 +8,8 @@ namespace PacMan
 {
     public class PacManWindow : Form
     {
-        readonly Size FrameSize = new Size(18, 40);
-        Map map;
+        readonly Size FrameSize = new Size(17, 39);
+        readonly GameController gameController;
 
         public PacManWindow()
         {
@@ -25,9 +25,9 @@ namespace PacMan
             for (int i = 0; i < charFields.GetLength(0); i++)
                 for (int j = 0; j < charFields.GetLength(1); j++)
                     charFields[i, j] = notParsedMap[i][j];
-            map = new Map(charFields);
-            Width = Map.LENGTH_SQUARE * map.Width + FrameSize.Width;
-            Height = Map.LENGTH_SQUARE * map.Height + FrameSize.Height;
+            gameController = new GameController(new Map(charFields));
+            Width = Map.LENGTH_CELL * gameController.Map.Width + FrameSize.Width;
+            Height = Map.LENGTH_CELL * gameController.Map.Height + FrameSize.Height;
             Timer timer = new Timer
             {
                 Interval = 16,
@@ -39,7 +39,7 @@ namespace PacMan
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            map.OnPaint(e);
+            gameController.OnPaint(e);
         }
 
         void TimerTick(object sender, EventArgs args)

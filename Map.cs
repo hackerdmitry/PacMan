@@ -7,8 +7,9 @@ namespace PacMan
 {
     public class Map
     {
-        public const int LENGTH_SQUARE = 16;
-        readonly IField[,] fields;
+        public const int LENGTH_CELL = 16; // кратно DEFAULT_LENGTH_CELL
+        public const int DEFAULT_LENGTH_CELL = 8;
+        public readonly IField[,] fields;
         public int Height { get; }
         public int Width { get; }
 
@@ -34,12 +35,14 @@ namespace PacMan
                     fields[i, j] = dictionaryFields[charFields[i, j]]();
         }
 
+        public IField GetField(Position posRegardingMapCells) => fields[posRegardingMapCells.x, posRegardingMapCells.y];
+
         public void OnPaint(PaintEventArgs e)
         {
             for (int i = 0; i < Height; i++)
                 for (int j = 0; j < Width; j++)
-                    e.Graphics.DrawImage(fields[i, j].Bitmap, new Rectangle(j * LENGTH_SQUARE, i * LENGTH_SQUARE,
-                                             LENGTH_SQUARE, LENGTH_SQUARE));
+                    e.Graphics.DrawImage(fields[i, j].Bitmap, new Rectangle(j * LENGTH_CELL, i * LENGTH_CELL,
+                                             LENGTH_CELL, LENGTH_CELL));
             e.Graphics.ResetTransform();
         }
     }
