@@ -21,7 +21,7 @@ namespace PacMan
             
             string[] notParsedMap = new StreamReader("../../Levels/fields_level_1.txt").ReadToEnd()
 //            string[] notParsedMap = new StreamReader("../../Levels/demo.txt").ReadToEnd()
-                .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();
+                .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();  
             char[,] charFields = new char[notParsedMap.Length,notParsedMap[0].Length];
             for (int i = 0; i < charFields.GetLength(0); i++)
                 for (int j = 0; j < charFields.GetLength(1); j++)
@@ -34,7 +34,7 @@ namespace PacMan
         Timer GetTimer()
         {
             Timer timer = new Timer();
-            timer.Interval = 16;
+            timer.Interval = 32 * Map.DEFAULT_LENGTH_CELL / Map.LENGTH_CELL;
             timer.Enabled = true;
             timer.Tick += TimerTick;
             return timer;
