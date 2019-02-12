@@ -20,20 +20,24 @@ namespace PacMan
             Text = "PacMan";
             
             string[] notParsedMap = new StreamReader("../../Levels/fields_level_1.txt").ReadToEnd()
+//            string[] notParsedMap = new StreamReader("../../Levels/demo.txt").ReadToEnd()
                 .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();
             char[,] charFields = new char[notParsedMap.Length,notParsedMap[0].Length];
             for (int i = 0; i < charFields.GetLength(0); i++)
                 for (int j = 0; j < charFields.GetLength(1); j++)
                     charFields[i, j] = notParsedMap[i][j];
-            gameController = new GameController(this, new Map(charFields));
-            Width = Map.LENGTH_CELL * gameController.Map.Width + FrameSize.Width;
-            Height = Map.LENGTH_CELL * gameController.Map.Height + FrameSize.Height;
-            Timer timer = new Timer
-            {
-                Interval = 16,
-                Enabled = true
-            };
+            gameController = new GameController(this, new Map(charFields), GetTimer());
+            Width = Map.LENGTH_CELL * gameController.Map.WidthCountCell + FrameSize.Width;
+            Height = Map.LENGTH_CELL * gameController.Map.HeightCountCell + FrameSize.Height;
+        }
+
+        Timer GetTimer()
+        {
+            Timer timer = new Timer();
+            timer.Interval = 16;
+            timer.Enabled = true;
             timer.Tick += TimerTick;
+            return timer;
         }
 
         protected override void OnPaint(PaintEventArgs e)

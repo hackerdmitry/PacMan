@@ -10,8 +10,9 @@ namespace PacMan
         public const int LENGTH_CELL = 16; // кратно DEFAULT_LENGTH_CELL
         public const int DEFAULT_LENGTH_CELL = 8;
         public readonly IField[,] fields;
-        public int Height { get; }
-        public int Width { get; }
+        public int HeightCountCell { get; }
+        public int WidthCountCell { get; }
+        public Size SizeCountCells { get; }
 
         readonly Dictionary<char, Func<IField>> dictionaryFields = new Dictionary<char, Func<IField>>
         {
@@ -26,22 +27,23 @@ namespace PacMan
 
         public Map(char[,] charFields)
         {
-            Height = charFields.GetLength(0);
-            Width = charFields.GetLength(1);
-            fields = new IField[Height, Width];
+            WidthCountCell = charFields.GetLength(1);
+            HeightCountCell = charFields.GetLength(0);
+            SizeCountCells = new Size(WidthCountCell, HeightCountCell);
+            fields = new IField[WidthCountCell, HeightCountCell];
 
-            for (int i = 0; i < Height; i++)
-                for (int j = 0; j < Width; j++)
-                    fields[i, j] = dictionaryFields[charFields[i, j]]();
+            for (int i = 0; i < WidthCountCell; i++)
+                for (int j = 0; j < HeightCountCell; j++)
+                    fields[i, j] = dictionaryFields[charFields[j, i]]();
         }
 
         public IField GetField(Position posRegardingMapCells) => fields[posRegardingMapCells.x, posRegardingMapCells.y];
 
         public void OnPaint(PaintEventArgs e)
         {
-            for (int i = 0; i < Height; i++)
-                for (int j = 0; j < Width; j++)
-                    GameController.DrawImageRegardingMapCells(e, fields[i, j].Bitmap, new Position(j, i));
+            for (int i = 0; i < WidthCountCell; i++)
+                for (int j = 0; j < HeightCountCell; j++)
+                    GameController.DrawImageRegardingMapCells(e, fields[i, j].Bitmap, new Position(i, j));
 //                    e.Graphics.DrawImage(fields[i, j].Bitmap, new Rectangle(j * LENGTH_CELL, i * LENGTH_CELL,
 //                                             LENGTH_CELL, LENGTH_CELL));
         }

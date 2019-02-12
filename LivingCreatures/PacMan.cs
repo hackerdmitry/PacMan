@@ -6,13 +6,14 @@ namespace PacMan
     public class PacMan : IControlled
     {
         GameController GameController { get; }
-        Bitmap Bitmap { get; }
-        public Direction CurrentDirection { get; private set; }
+        public Bitmap Bitmap { get; }
+        public Direction CurrentDirection { get; set; }
         public Position AccuratePosition { get; private set; }
 //        public Position PositionRegardingMapCells => 
 //            new Position((AccuratePosition.x + Map.LENGTH_CELL / 2) / Map.LENGTH_CELL,
 //                         (AccuratePosition.y + Map.LENGTH_CELL / 2) / Map.LENGTH_CELL);
 
+        Direction desiredDirection;
         public PacMan(GameController gameController, Position accuratePostion)
         {
             //TODO перестать хардкодить
@@ -20,32 +21,32 @@ namespace PacMan
             CurrentDirection = Direction.Right;
             AccuratePosition = accuratePostion;
             GameController = gameController;
-            GameController.PacManWindow.KeyDown += Move;
+            GameController.PacManWindow.KeyDown += ChangeDirection;
         }
 
-        void Move(object sender, KeyEventArgs e)
+        public void Move()
         {
-            GameController.PacManWindow.Text = e.KeyCode.ToString();
+            AccuratePosition = GameController.Move(this, desiredDirection);
+            GameController.PacManWindow.Text = $"PacMan {AccuratePosition.x} {AccuratePosition.y}";
+        }
+
+        void ChangeDirection(object sender, KeyEventArgs e)
+        {
             switch (e.KeyCode)
             {
                 case Keys.W:
-                    AccuratePosition = GameController.Move(this, Direction.Down);
+                    desiredDirection = Direction.Down;
                     break;
                 case Keys.D:
-                    AccuratePosition = GameController.Move(this, Direction.Right);
+                    desiredDirection = Direction.Right;
                     break;
                 case Keys.S:
-                    AccuratePosition = GameController.Move(this, Direction.Up);
+                    desiredDirection = Direction.Up;
                     break;
                 case Keys.A:
-                    AccuratePosition = GameController.Move(this, Direction.Left);
+                    desiredDirection = Direction.Left;
                     break;
             }
-        }
-
-        public void OnPaint(PaintEventArgs e)
-        {
-            GameController.DrawImageAccuratePos(e, Bitmap, AccuratePosition);
         }
     }
 }
