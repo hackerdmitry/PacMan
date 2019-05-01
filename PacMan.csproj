@@ -95,9 +95,38 @@
       <Content Include="Pictures\Player\Player1.png" />
       <Content Include="Pictures\Player\Player2.png" />
       <Content Include="Pictures\Player\Player3.png" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Pictures\Walls" />
+      <Content Include="Pictures\SpawnWalls\WallTo0000.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo0001.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo0010.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo0011.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo0100.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo0101.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo0110.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo0111.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo1000.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo1001.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo1010.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo1011.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo1100.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo1101.png" />
+      <Content Include="Pictures\SpawnWalls\WallTo1110.png" />
+      <Content Include="Pictures\SpawnWalls\WallToLine.png" />
+      <Content Include="Pictures\Walls\WallTo0000.png" />
+      <Content Include="Pictures\Walls\WallTo0001.png" />
+      <Content Include="Pictures\Walls\WallTo0010.png" />
+      <Content Include="Pictures\Walls\WallTo0011.png" />
+      <Content Include="Pictures\Walls\WallTo0100.png" />
+      <Content Include="Pictures\Walls\WallTo0101.png" />
+      <Content Include="Pictures\Walls\WallTo0110.png" />
+      <Content Include="Pictures\Walls\WallTo0111.png" />
+      <Content Include="Pictures\Walls\WallTo1000.png" />
+      <Content Include="Pictures\Walls\WallTo1001.png" />
+      <Content Include="Pictures\Walls\WallTo1010.png" />
+      <Content Include="Pictures\Walls\WallTo1011.png" />
+      <Content Include="Pictures\Walls\WallTo1100.png" />
+      <Content Include="Pictures\Walls\WallTo1101.png" />
+      <Content Include="Pictures\Walls\WallTo1110.png" />
+      <Content Include="Pictures\Walls\WallTo1111.png" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
