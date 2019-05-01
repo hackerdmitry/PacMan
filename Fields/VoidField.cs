@@ -4,8 +4,15 @@ namespace PacMan
 {
     public class VoidField : IField
     {
-        public VoidField() => Bitmap = new Bitmap("../../Pictures/Fields/VoidField.png");
+        public VoidField(int x, int y)
+        {
+            X = x;
+            Y = y;
+            Bitmap = new Bitmap("../../Pictures/Fields/VoidField.png");
+        }
 
+        public int X { get; }
+        public int Y { get; }
         public bool IsWall => false;
         public Bitmap Bitmap { get; }
     }

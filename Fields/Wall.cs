@@ -5,7 +5,8 @@ namespace PacMan
 {
     enum Walls
     {
-        SimpleWall,
+        HorizontalWall,
+        VerticalWall,
         WallToUp,
         WallToRight,
         WallToLeft,
@@ -14,17 +15,21 @@ namespace PacMan
 
     public class Wall : IField
     {
-        readonly Dictionary<Walls, Bitmap> walls = new Dictionary<Walls, Bitmap>
+        public Wall(Map map, int x, int y)
         {
-            {Walls.SimpleWall, new Bitmap("../../Pictures/Walls/SimpleWall.png")},
-            {Walls.WallToUp, new Bitmap("../../Pictures/Walls/WallToUp.png")},
-            {Walls.WallToRight, new Bitmap("../../Pictures/Walls/WallToRight.png")},
-            {Walls.WallToLeft, new Bitmap("../../Pictures/Walls/WallToLeft.png")},
-            {Walls.WallToDown, new Bitmap("../../Pictures/Walls/WallToDown.png")}
-        };
+            X = x;
+            Y = y;
+            Bitmap = new Bitmap("../../Pictures/Walls/WallTo" +
+                                $"{GetIntCell(map, X, Y - 1)}" +
+                                $"{GetIntCell(map, X - 1, Y)}" +
+                                $"{GetIntCell(map, X, Y + 1)}" +
+                                $"{GetIntCell(map, X + 1, Y)}.png");
+        }
 
-        public Wall(int numWall) => Bitmap = walls[(Walls) numWall];
+        int GetIntCell(Map map, int x, int y) => map.IsCorrectPos(y, x) && map.charFields[x, y] == 'w' ? 1 : 0;
 
+        public int X { get; }
+        public int Y { get; }
         public bool IsWall => true;
         public Bitmap Bitmap { get; }
     }
