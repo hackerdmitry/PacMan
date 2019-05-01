@@ -11,7 +11,7 @@ namespace PacMan
         WallToLeft,
         WallToDown
     }
-    
+
     public class Wall : IField
     {
         readonly Dictionary<Walls, Bitmap> walls = new Dictionary<Walls, Bitmap>
@@ -23,7 +23,7 @@ namespace PacMan
             {Walls.WallToDown, new Bitmap("../../Pictures/Walls/WallToDown.png")}
         };
 
-        public Wall(int numWall) => Bitmap = walls[(Walls)numWall];
+        public Wall(int numWall) => Bitmap = walls[(Walls) numWall];
 
         public bool IsWall => true;
         public Bitmap Bitmap { get; }

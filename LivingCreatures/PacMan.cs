@@ -51,6 +51,7 @@ namespace PacMan
 //                         (AccuratePosition.y + Map.LENGTH_CELL / 2) / Map.LENGTH_CELL);
 
         Direction desiredDirection;
+
         public PacMan(GameController gameController, Position accuratePostion)
         {
 //            //TODO перестать хардкодить

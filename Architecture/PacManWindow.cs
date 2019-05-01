@@ -18,11 +18,11 @@ namespace PacMan
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Text = "PacMan";
-            
+
             string[] notParsedMap = new StreamReader("../../Levels/fields_level_1.txt").ReadToEnd()
 //            string[] notParsedMap = new StreamReader("../../Levels/demo.txt").ReadToEnd()
-                .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();  
-            char[,] charFields = new char[notParsedMap.Length,notParsedMap[0].Length];
+                .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            char[,] charFields = new char[notParsedMap.Length, notParsedMap[0].Length];
             for (int i = 0; i < charFields.GetLength(0); i++)
                 for (int j = 0; j < charFields.GetLength(1); j++)
                     charFields[i, j] = notParsedMap[i][j];
@@ -46,9 +46,6 @@ namespace PacMan
             gameController.OnPaint(e);
         }
 
-        void TimerTick(object sender, EventArgs args)
-        {
-            Invalidate();
-        }
+        void TimerTick(object sender, EventArgs args) { Invalidate(); }
     }
 }

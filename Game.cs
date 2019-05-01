@@ -4,13 +4,13 @@ namespace PacMan
 {
     public static class Game
     {
-        private const string mapWithPlayerTerrain = @"
+        const string mapWithPlayerTerrain = @"
 TTT T
 TTP T
 T T T
 TT TT";
 
-        private const string mapWithPlayerTerrainSackGold = @"
+        const string mapWithPlayerTerrainSackGold = @"
 PTTGTT TS
 TST  TSTT
 TTTTTTSTT
@@ -18,7 +18,7 @@ T TSTS TT
 T TTTG ST
 TSTSTT TT";
 
-        private const string mapWithPlayerTerrainSackGoldMonster = @"
+        const string mapWithPlayerTerrainSackGoldMonster = @"
 PTTGTT TST
 TST  TSTTM
 TTT TTSTTT
