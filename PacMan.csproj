@@ -93,11 +93,9 @@
       <Content Include="Pictures\Player\Player1.png" />
       <Content Include="Pictures\Player\Player2.png" />
       <Content Include="Pictures\Player\Player3.png" />
-      <Content Include="Pictures\Walls\SimpleWall.png" />
-      <Content Include="Pictures\Walls\WallToDown.png" />
-      <Content Include="Pictures\Walls\WallToLeft.png" />
-      <Content Include="Pictures\Walls\WallToRight.png" />
-      <Content Include="Pictures\Walls\WallToUp.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Pictures\Walls" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

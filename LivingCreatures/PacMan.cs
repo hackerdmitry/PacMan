@@ -61,7 +61,7 @@ namespace PacMan
             GameController = gameController;
             GameController.PacManWindow.KeyDown += ChangeDirection;
             Timer timer = new Timer();
-            timer.Interval = 32;
+            timer.Interval = 100;
             timer.Tick += ChangeAnimation;
             timer.Start();
         }

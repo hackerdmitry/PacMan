@@ -4,8 +4,15 @@ namespace PacMan
 {
     public class SimpleField : IField
     {
-        public SimpleField() => Bitmap = new Bitmap("../../Pictures/Fields/SimpleField.png");
+        public SimpleField(int x, int y)
+        {
+            X = x;
+            Y = y;
+            Bitmap = new Bitmap("../../Pictures/Fields/SimpleField.png");
+        }
 
+        public int X { get; }
+        public int Y { get; }
         public bool IsWall => false;
         public Bitmap Bitmap { get; }
     }
