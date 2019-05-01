@@ -50,6 +50,8 @@
         <Compile Include="Architecture\IField.cs" />
         <Compile Include="Architecture\PacManWindow.cs" />
         <Compile Include="Fields\SimpleField.cs" />
+        <Compile Include="Fields\SpawnLine.cs" />
+        <Compile Include="Fields\SpawnWall.cs" />
         <Compile Include="Fields\VoidField.cs" />
         <Compile Include="Fields\Wall.cs" />
         <Compile Include="Game.cs" />

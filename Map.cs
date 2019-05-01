@@ -27,6 +27,8 @@ namespace PacMan
             dictionaryFields = new Dictionary<char, Func<int, int, IField>>
             {
                 {'w', (x, y) => new Wall(this, x, y)},
+                {'s', (x, y) => new SpawnWall(this, x, y)},
+                {'l', (x, y) => new SpawnLine(x, y)},
                 {' ', (x, y) => new SimpleField(x, y)},
                 {'0', (x, y) => new VoidField(x, y)}
             };
