@@ -7,7 +7,7 @@ w lwr u lwwwwwr u lwr w
 w     w    w    w     w
 wwwww wwwr d lwww wwwww
 0000w w         w w0000
-wwwww d wwwwwww d wwwww
+wwwww d www www d wwwww
         w     w        
 wwwww u wwwwwww u wwwww
 0000w w         w w0000
@@ -15,7 +15,7 @@ wwwww d lwwwwwr d wwwww
 w          w          w
 w lww lwwr d lwwr wwr w
 w   w             w   w
-wwr d u lwwwwwr u d   w
+wwr d u lwwwwwr u d lww
 w     w    w    w     w
 w lwwwwwwr d lwwwwwwr w
 w                     w
