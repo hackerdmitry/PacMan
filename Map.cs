@@ -46,8 +46,6 @@ namespace PacMan
             for (int i = 0; i < WidthCountCell; i++)
                 for (int j = 0; j < HeightCountCell; j++)
                     GameController.DrawImageRegardingMapCells(e, fields[i, j].Bitmap, new Position(i, j));
-//                    e.Graphics.DrawImage(fields[i, j].Bitmap, new Rectangle(j * LENGTH_CELL, i * LENGTH_CELL,
-//                                             LENGTH_CELL, LENGTH_CELL));
         }
     }
 }

@@ -1,5 +1,7 @@
 using System;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PacMan
@@ -8,13 +10,7 @@ namespace PacMan
     {
         GameController GameController { get; }
 
-        readonly Bitmap[] animation =
-        {
-            new Bitmap("../../Pictures/Player/Player1.png"),
-            new Bitmap("../../Pictures/Player/Player2.png"),
-            new Bitmap("../../Pictures/Player/Player3.png"),
-            new Bitmap("../../Pictures/Player/Player2.png")
-        };
+        readonly Bitmap[] animation;
 
         int iAnimation;
 
@@ -45,6 +41,7 @@ namespace PacMan
         }
 
         public Direction CurrentDirection { get; set; }
+        Position lastAccuratePosition;
         public Position AccuratePosition { get; private set; }
 //        public Position PositionRegardingMapCells => 
 //            new Position((AccuratePosition.x + Map.LENGTH_CELL / 2) / Map.LENGTH_CELL,
@@ -54,24 +51,27 @@ namespace PacMan
 
         public PacMan(GameController gameController, Position accuratePostion)
         {
-//            //TODO перестать хардкодить
-//            Bitmap = new Bitmap("../../Pictures/Player.png");
             CurrentDirection = Direction.Right;
             AccuratePosition = accuratePostion;
+            lastAccuratePosition = AccuratePosition;
+            animation = Directory.GetFiles("../../Pictures/Player").Select(x => new Bitmap(x)).ToArray();
             GameController = gameController;
             GameController.PacManWindow.KeyDown += ChangeDirection;
             Timer timer = new Timer();
             timer.Interval = 100;
-            timer.Tick += ChangeAnimation;
+            timer.Tick += (s, e) =>
+            {
+                if (!(lastAccuratePosition - AccuratePosition).Equals(Position.Empty))
+                    iAnimation = (iAnimation + 1) % animation.Length;
+            };
             timer.Start();
         }
 
-        void ChangeAnimation(object sender, EventArgs e) => iAnimation = (iAnimation + 1) % animation.Length;
-
         public void Move()
         {
+            lastAccuratePosition = AccuratePosition;
             AccuratePosition = GameController.Move(this, desiredDirection);
-            GameController.PacManWindow.Text = $"PacMan {AccuratePosition.x} {AccuratePosition.y}";
+            GameController.PacManWindow.Text = $@"PacMan {AccuratePosition.x} {AccuratePosition.y}";
         }
 
         void ChangeDirection(object sender, KeyEventArgs e)
@@ -79,15 +79,19 @@ namespace PacMan
             switch (e.KeyCode)
             {
                 case Keys.W:
+                case Keys.Up:
                     desiredDirection = Direction.Down;
                     break;
                 case Keys.D:
+                case Keys.Right:
                     desiredDirection = Direction.Right;
                     break;
                 case Keys.S:
+                case Keys.Down:
                     desiredDirection = Direction.Up;
                     break;
                 case Keys.A:
+                case Keys.Left:
                     desiredDirection = Direction.Left;
                     break;
             }
