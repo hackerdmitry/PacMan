@@ -85,6 +85,19 @@
     <ItemGroup>
       <Content Include="Levels\demo.txt" />
       <Content Include="Levels\fields_level_1.txt" />
+      <Content Include="Pictures\Fields\SimpleField.png" />
+      <Content Include="Pictures\Fields\SimpleField1.png" />
+      <Content Include="Pictures\Fields\VoidField.png" />
+      <Content Include="Pictures\Player.png" />
+      <Content Include="Pictures\Player1.png" />
+      <Content Include="Pictures\Player\Player1.png" />
+      <Content Include="Pictures\Player\Player2.png" />
+      <Content Include="Pictures\Player\Player3.png" />
+      <Content Include="Pictures\Walls\SimpleWall.png" />
+      <Content Include="Pictures\Walls\WallToDown.png" />
+      <Content Include="Pictures\Walls\WallToLeft.png" />
+      <Content Include="Pictures\Walls\WallToRight.png" />
+      <Content Include="Pictures\Walls\WallToUp.png" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
