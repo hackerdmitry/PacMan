@@ -45,14 +45,14 @@ namespace PacMan
         public Position Move(IControlled creature, Direction direction)
         {
             Position newAccuratePosByDesiredDir =
-                (creature.AccuratePosition + GetPosition(direction) + SizeMap) % SizeMap;
+                (creature.AccuratePosition + GetPosition(direction) * creature.Speed + SizeMap) % SizeMap;
             if (GetCellsRegardingEdges(newAccuratePosByDesiredDir)
                     .Any(x => Map.GetField((x + Map.SizeCountCells) % Map.SizeCountCells).IsWall) ||
                 newAccuratePosByDesiredDir.x % Map.LENGTH_CELL != 0 &&
                 newAccuratePosByDesiredDir.y % Map.LENGTH_CELL != 0)
             {
                 Position newAccuratePosByCurrentDir =
-                    (creature.AccuratePosition + GetPosition(creature.CurrentDirection) + SizeMap) % SizeMap;
+                    (creature.AccuratePosition + GetPosition(creature.CurrentDirection) * creature.Speed + SizeMap) % SizeMap;
                 return GetCellsRegardingEdges(newAccuratePosByCurrentDir)
                     .Any(x => Map.GetField((x + Map.SizeCountCells) % Map.SizeCountCells).IsWall)
                     ? creature.AccuratePosition

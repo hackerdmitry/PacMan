@@ -7,6 +7,8 @@ namespace PacMan
         Direction CurrentDirection { get; set; }
 
         Position AccuratePosition { get; }
+        
+        int Speed { get; }
 
         Bitmap Bitmap { get; }
 //        Position PositionRegardingMapCells { get; }
