@@ -8,7 +8,7 @@ namespace PacMan
 {
     public class PacMan : Creature
     {
-        public override float Speed => 1.5f;
+        public override float Speed => 1f;
 
         public override Bitmap Bitmap
         {

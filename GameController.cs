@@ -32,7 +32,7 @@ namespace PacMan
             //TODO брать позиции существ из файла
             creatures = new List<Creature>
             {
-                new PacMan(this, new Position(1, 1) * Map.LENGTH_CELL)
+                new PacMan(this, new Position(1, 1) * Map.LENGTH_CELL),
             };
         }
 
