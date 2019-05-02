@@ -8,7 +8,7 @@ namespace PacMan
 
         Position AccuratePosition { get; }
         
-        int Speed { get; }
+        float Speed { get; }
 
         Bitmap Bitmap { get; }
 //        Position PositionRegardingMapCells { get; }

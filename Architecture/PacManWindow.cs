@@ -14,7 +14,7 @@ namespace PacMan
         public PacManWindow()
         {
             DoubleBuffered = true;
-            BackColor = Color.Gold;
+            BackColor = Color.Black;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Text = "PacMan";

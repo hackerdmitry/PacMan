@@ -12,7 +12,7 @@ namespace PacMan
 
         readonly Bitmap[] animation;
 
-        public int Speed => 16;
+        public float Speed => 1.5f;
         int iAnimation;
 
         public Bitmap Bitmap
