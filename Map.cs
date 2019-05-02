@@ -15,6 +15,8 @@ namespace PacMan
         public PacManWindow PacManWindow { get; }
         public int WidthCountCell { get; }
         public Size SizeCountCells { get; }
+        
+        readonly Timer timer = new Timer();
 
         readonly Dictionary<char, Func<int, int, IField>> dictionaryFields;
 
