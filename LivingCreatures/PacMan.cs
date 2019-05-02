@@ -6,16 +6,11 @@ using System.Windows.Forms;
 
 namespace PacMan
 {
-    public class PacMan : IControlled
+    public class PacMan : Creature
     {
-        GameController GameController { get; }
+        public override float Speed => 1.5f;
 
-        readonly Bitmap[] animation;
-
-        public float Speed => 1.5f;
-        int iAnimation;
-
-        public Bitmap Bitmap
+        public override Bitmap Bitmap
         {
             get
             {
@@ -41,37 +36,14 @@ namespace PacMan
             throw new ArgumentException();
         }
 
-        public Direction CurrentDirection { get; set; }
-        Position lastAccuratePosition;
-        public Position AccuratePosition { get; private set; }
-//        public Position PositionRegardingMapCells => 
-//            new Position((AccuratePosition.x + Map.LENGTH_CELL / 2) / Map.LENGTH_CELL,
-//                         (AccuratePosition.y + Map.LENGTH_CELL / 2) / Map.LENGTH_CELL);
-
-        Direction desiredDirection;
-
-        public PacMan(GameController gameController, Position accuratePostion)
-        {
-            CurrentDirection = Direction.Right;
-            AccuratePosition = accuratePostion;
-            lastAccuratePosition = AccuratePosition;
-            animation = Directory.GetFiles("../../Pictures/Player").Select(x => new Bitmap(x)).ToArray();
-            GameController = gameController;
+        public PacMan(GameController gameController, Position accuratePostion) :
+            base(gameController, accuratePostion,
+                 Directory.GetFiles("../../Pictures/Player").Select(x => new Bitmap(x)).ToArray()) =>
             GameController.PacManWindow.KeyDown += ChangeDirection;
-            Timer timer = new Timer();
-            timer.Interval = 100;
-            timer.Tick += (s, e) =>
-            {
-                if (!(lastAccuratePosition - AccuratePosition).Equals(Position.Empty))
-                    iAnimation = (iAnimation + 1) % animation.Length;
-            };
-            timer.Start();
-        }
 
-        public void Move()
+        public override void Move()
         {
-            lastAccuratePosition = AccuratePosition;
-            AccuratePosition = GameController.Move(this, desiredDirection);
+            base.Move();
             GameController.PacManWindow.Text = $@"PacMan {AccuratePosition.x} {AccuratePosition.y}";
         }
 

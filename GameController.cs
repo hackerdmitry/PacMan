@@ -19,7 +19,7 @@ namespace PacMan
         public Map Map { get; }
         public PacManWindow PacManWindow { get; }
 
-        readonly List<IControlled> creatures;
+        readonly List<Creature> creatures;
 
         public Size SizeMap { get; }
 
@@ -30,7 +30,7 @@ namespace PacMan
             SizeMap = new Size(Map.WidthCountCell * Map.LENGTH_CELL, Map.HeightCountCell * Map.LENGTH_CELL);
             timer.Tick += TimerTick;
             //TODO брать позиции существ из файла
-            creatures = new List<IControlled>
+            creatures = new List<Creature>
             {
                 new PacMan(this, new Position(1, 1) * Map.LENGTH_CELL)
             };
@@ -38,11 +38,11 @@ namespace PacMan
 
         void TimerTick(object sender, EventArgs args)
         {
-            foreach (IControlled creature in creatures)
+            foreach (Creature creature in creatures)
                 creature.Move();
         }
 
-        public Position Move(IControlled creature, Direction direction)
+        public Position Move(Creature creature, Direction direction)
         {
             Position newAccuratePosByDesiredDir =
                 (creature.AccuratePosition + GetPosition(direction) * creature.Speed + SizeMap) % SizeMap;
@@ -101,7 +101,7 @@ namespace PacMan
         public void OnPaint(PaintEventArgs e)
         {
             Map.OnPaint(e);
-            foreach (IControlled creature in creatures)
+            foreach (Creature creature in creatures)
             {
                 Position rightBottomEdge = creature.AccuratePosition + (Map.LENGTH_CELL - 1);
                 DrawImageAccuratePos(e, creature.Bitmap, creature.AccuratePosition);

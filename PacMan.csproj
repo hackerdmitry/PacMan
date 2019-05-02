@@ -56,7 +56,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="GameController.cs" />
     <Compile Include="LivingCreatures\Ghosts.cs" />
-    <Compile Include="LivingCreatures\IControlled.cs" />
+    <Compile Include="LivingCreatures\Creature.cs" />
     <Compile Include="LivingCreatures\PacMan.cs" />
     <Compile Include="LivingCreatures\Position.cs" />
     <Compile Include="LivingCreatures\Shadow ghost.cs" />
