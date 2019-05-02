@@ -115,6 +115,8 @@
     <Content Include="Pictures\Player\Player7.png" />
     <Content Include="Pictures\Player\Player8.png" />
     <Content Include="Pictures\Player\Player9.png" />
+    <Content Include="Pictures\ShadowGhost\Player.png" />
+    <Content Include="Pictures\ShadowGhost\Player1.png" />
     <Content Include="Pictures\SpawnWalls\WallTo0000.png" />
     <Content Include="Pictures\SpawnWalls\WallTo0001.png" />
     <Content Include="Pictures\SpawnWalls\WallTo0010.png" />
