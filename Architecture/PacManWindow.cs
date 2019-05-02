@@ -9,7 +9,7 @@ namespace PacMan
     public class PacManWindow : Form
     {
         readonly Size FrameSize = new Size(17, 39);
-        readonly GameController gameController;
+        public readonly GameController gameController;
 
         public PacManWindow()
         {
@@ -26,7 +26,7 @@ namespace PacMan
             for (int i = 0; i < charFields.GetLength(0); i++)
                 for (int j = 0; j < charFields.GetLength(1); j++)
                     charFields[i, j] = notParsedMap[i][j];
-            gameController = new GameController(this, new Map(charFields), GetTimer());
+            gameController = new GameController(this, new Map(charFields, this), GetTimer());
             Width = Map.LENGTH_CELL * gameController.Map.WidthCountCell + FrameSize.Width;
             Height = Map.LENGTH_CELL * gameController.Map.HeightCountCell + FrameSize.Height;
         }

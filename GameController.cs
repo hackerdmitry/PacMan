@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -19,7 +20,7 @@ namespace PacMan
         public Map Map { get; }
         public PacManWindow PacManWindow { get; }
 
-        readonly List<Creature> creatures;
+        public readonly List<Creature> creatures;
 
         public Size SizeMap { get; }
 
@@ -33,6 +34,7 @@ namespace PacMan
             creatures = new List<Creature>
             {
                 new PacMan(this, new Position(1, 1) * Map.LENGTH_CELL),
+                new ShadowGhost(this, new Position(21, 5) * Map.LENGTH_CELL, map)
             };
         }
 
@@ -84,6 +86,13 @@ namespace PacMan
                 case Direction.Right: return new Position(1, 0);
             }
             throw new ArgumentException();
+        }
+
+        public static Direction GetDirection(Position position)
+        {
+            if (position.x != 0)
+                return position.x < 0 ? Direction.Left : Direction.Right;
+            return position.y < 0 ? Direction.Down : Direction.Up;
         }
 
         public static void DrawImageAccuratePos(PaintEventArgs e, Bitmap image, Position accuratePosition) =>

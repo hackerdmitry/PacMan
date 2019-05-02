@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,7 +14,7 @@ namespace PacMan
         protected Direction desiredDirection;
         protected int iAnimation;
         protected readonly Bitmap[] animation;
-        
+
         public Creature(GameController gameController, Position accuratePostion, Bitmap[] animation)
         {
             CurrentDirection = Direction.Right;
@@ -30,10 +31,34 @@ namespace PacMan
             };
             timer.Start();
         }
-        
+
         public abstract float Speed { get; }
 
-        public abstract Bitmap Bitmap { get; }
+        public Bitmap Bitmap
+        {
+            get
+            {
+                Bitmap necessaryBitmap = (Bitmap) animation[iAnimation].Clone();
+                necessaryBitmap.RotateFlip(GetRotateFlipType(CurrentDirection));
+                return necessaryBitmap;
+            }
+        }
+
+        public static RotateFlipType GetRotateFlipType(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Up:
+                    return RotateFlipType.Rotate90FlipNone;
+                case Direction.Right:
+                    return RotateFlipType.RotateNoneFlipNone;
+                case Direction.Down:
+                    return RotateFlipType.Rotate270FlipNone;
+                case Direction.Left:
+                    return RotateFlipType.Rotate180FlipY;
+            }
+            throw new ArgumentException();
+        }
 //        Position PositionRegardingMapCells { get; }
 
         public virtual void Move()

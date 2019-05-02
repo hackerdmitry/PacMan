@@ -12,13 +12,15 @@ namespace PacMan
         public readonly IField[,] fields;
         public readonly char[,] charFields;
         public int HeightCountCell { get; }
+        public PacManWindow PacManWindow { get; }
         public int WidthCountCell { get; }
         public Size SizeCountCells { get; }
 
         readonly Dictionary<char, Func<int, int, IField>> dictionaryFields;
 
-        public Map(char[,] charFields)
+        public Map(char[,] charFields, PacManWindow pacManWindow)
         {
+            PacManWindow = pacManWindow;
             WidthCountCell = charFields.GetLength(1);
             HeightCountCell = charFields.GetLength(0);
             SizeCountCells = new Size(WidthCountCell, HeightCountCell);

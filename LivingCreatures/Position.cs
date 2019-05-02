@@ -17,8 +17,6 @@ namespace PacMan
         {
             this.x = x;
             this.y = y;
-            modX = 0;
-            modY = 0;
         }
 
         Position(float x, float y)
@@ -55,6 +53,8 @@ namespace PacMan
 
         public static Position operator %(Position pos1, Size pos2)
             => new Position(pos1.X % pos2.Width, pos1.Y % pos2.Height);
+
+        public override int GetHashCode() => x * 397 ^ y;
 
         public override bool Equals(object obj)
         {

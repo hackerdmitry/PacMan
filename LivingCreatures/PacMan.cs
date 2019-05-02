@@ -10,32 +10,6 @@ namespace PacMan
     {
         public override float Speed => 1f;
 
-        public override Bitmap Bitmap
-        {
-            get
-            {
-                Bitmap necessaryBitmap = (Bitmap) animation[iAnimation].Clone();
-                necessaryBitmap.RotateFlip(GetRotateFlipType(CurrentDirection));
-                return necessaryBitmap;
-            }
-        }
-
-        public static RotateFlipType GetRotateFlipType(Direction direction)
-        {
-            switch (direction)
-            {
-                case Direction.Up:
-                    return RotateFlipType.Rotate90FlipNone;
-                case Direction.Right:
-                    return RotateFlipType.RotateNoneFlipNone;
-                case Direction.Down:
-                    return RotateFlipType.Rotate270FlipNone;
-                case Direction.Left:
-                    return RotateFlipType.Rotate180FlipY;
-            }
-            throw new ArgumentException();
-        }
-
         public PacMan(GameController gameController, Position accuratePostion) :
             base(gameController, accuratePostion,
                  Directory.GetFiles("../../Pictures/Player").Select(x => new Bitmap(x)).ToArray()) =>

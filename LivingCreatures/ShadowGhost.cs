@@ -5,20 +5,16 @@ using System.Runtime.CompilerServices;
 
 namespace PacMan
 {
-    public class ShadowGhost : Creature
+    public class ShadowGhost : Ghost
     {
-        public ShadowGhost(GameController gameController, Position accuratePostion, Bitmap[] animation) : base(
-            gameController, accuratePostion, animation)
-        {
-            //Directory.GetFiles("../../Pictures/Player").Select(x => new Bitmap(x)).ToArray();
-        }
-
-        public override float Speed { get; }
-        public override Bitmap Bitmap { get; }
+        public ShadowGhost(GameController gameController, Position accuratePostion, Map map) : base(
+            gameController, accuratePostion,
+            Directory.GetFiles("../../Pictures/ShadowGhost").Select(x => new Bitmap(x)).ToArray(), map) { }
 
         public override void Move()
         {
-            
+            Target = Map.PacManWindow.gameController.creatures[0].AccuratePosition / Map.LENGTH_CELL;
+            base.Move();
         }
     }
 }
