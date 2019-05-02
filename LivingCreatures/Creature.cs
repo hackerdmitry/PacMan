@@ -18,6 +18,7 @@ namespace PacMan
         public Creature(GameController gameController, Position accuratePostion, Bitmap[] animation)
         {
             CurrentDirection = Direction.Right;
+            desiredDirection = CurrentDirection;
             AccuratePosition = accuratePostion;
             this.animation = animation;
             lastAccuratePosition = AccuratePosition;

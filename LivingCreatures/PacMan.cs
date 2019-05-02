@@ -1,4 +1,3 @@
-using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace PacMan
 {
     public class PacMan : Creature
     {
-        public override float Speed => 1f;
+        public override float Speed => 1.5f;
 
         public PacMan(GameController gameController, Position accuratePostion) :
             base(gameController, accuratePostion,
