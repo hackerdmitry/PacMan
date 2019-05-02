@@ -61,6 +61,7 @@
     <Compile Include="LivingCreatures\PacMan.cs" />
     <Compile Include="LivingCreatures\Position.cs" />
     <Compile Include="LivingCreatures\ShadowGhost.cs" />
+    <Compile Include="LivingCreatures\TimerOfFearOrPursit.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
