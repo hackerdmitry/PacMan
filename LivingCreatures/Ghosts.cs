@@ -8,28 +8,9 @@ namespace PacMan
 {
     public abstract class Ghost
     {
-        int x { get; set; }
-        int y { get; set; }
 
-        Position target { get; set; }
-
-        Random random = new Random();
-        public readonly Position InitialPosition;
-        public readonly Position Exit;
-        public readonly Position[,] PacmanCell;
-
-        public Ghost(int x, int y, Position initialPosition, Position exit, Position[,] pacmanCell)
+        public static Position FindPaths(Map map, Position start, Position target)
         {
-            this.x = x;
-            this.y = y;
-            InitialPosition = initialPosition;
-            Exit = exit;
-            PacmanCell = pacmanCell;
-        }
-
-        public Position FindPaths(Map map, Position start, Position pacmanCell)
-        {
-            LinkedList<Position> linkedList = new LinkedList<Position>();
             var queue = new Queue<LinkedList<Position>>();
             queue.Enqueue(new LinkedList<Position>(new[] {start}));
             var visited = new HashSet<Position>();
@@ -42,7 +23,7 @@ namespace PacMan
                     point.y < 0 || point.y >= map.fields.GetLength(1) ||
                     !(map.fields[point.x, point.y] is SimpleField) || visited.Contains(point)) continue;
                 visited.Add(point);
-                if (point == target) return singlyLinkedList.First.Value;
+                if (point.Equals(target)) return singlyLinkedList.First.Value;
                 for (var dy = -1; dy <= 1; dy++)
                     for (var dx = -1; dx <= 1; dx++)
                         if (dx == 0 || dy == 0)
