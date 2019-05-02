@@ -115,8 +115,14 @@
     <Content Include="Pictures\Player\Player7.png" />
     <Content Include="Pictures\Player\Player8.png" />
     <Content Include="Pictures\Player\Player9.png" />
-    <Content Include="Pictures\ShadowGhost\Player.png" />
-    <Content Include="Pictures\ShadowGhost\Player1.png" />
+    <Content Include="Pictures\ShadowGhost\ShadowDown\Shadow1.png" />
+    <Content Include="Pictures\ShadowGhost\ShadowDown\Shadow2.png" />
+    <Content Include="Pictures\ShadowGhost\ShadowLeft\Shadow1.png" />
+    <Content Include="Pictures\ShadowGhost\ShadowLeft\Shadow2.png" />
+    <Content Include="Pictures\ShadowGhost\ShadowRight\Shadow1.png" />
+    <Content Include="Pictures\ShadowGhost\ShadowRight\Shadow2.png" />
+    <Content Include="Pictures\ShadowGhost\ShadowUp\Shadow1.png" />
+    <Content Include="Pictures\ShadowGhost\ShadowUp\Shadow2.png" />
     <Content Include="Pictures\SpawnWalls\WallTo0000.png" />
     <Content Include="Pictures\SpawnWalls\WallTo0001.png" />
     <Content Include="Pictures\SpawnWalls\WallTo0010.png" />

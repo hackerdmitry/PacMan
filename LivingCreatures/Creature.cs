@@ -13,9 +13,9 @@ namespace PacMan
         Position lastAccuratePosition;
         protected Direction desiredDirection;
         protected int iAnimation;
-        protected readonly Bitmap[] animation;
+        protected Bitmap[] animation;
 
-        public Creature(GameController gameController, Position accuratePostion, Bitmap[] animation)
+        protected Creature(GameController gameController, Position accuratePostion, Bitmap[] animation)
         {
             CurrentDirection = Direction.Right;
             desiredDirection = CurrentDirection;
@@ -35,7 +35,7 @@ namespace PacMan
 
         public abstract float Speed { get; }
 
-        public Bitmap Bitmap
+        public virtual Bitmap Bitmap
         {
             get
             {
@@ -45,7 +45,7 @@ namespace PacMan
             }
         }
 
-        public static RotateFlipType GetRotateFlipType(Direction direction)
+        static RotateFlipType GetRotateFlipType(Direction direction)
         {
             switch (direction)
             {
@@ -60,7 +60,6 @@ namespace PacMan
             }
             throw new ArgumentException();
         }
-//        Position PositionRegardingMapCells { get; }
 
         public virtual void Move()
         {

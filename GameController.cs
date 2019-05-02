@@ -48,7 +48,7 @@ namespace PacMan
         {
             Position newAccuratePosByDesiredDir =
                 (creature.AccuratePosition + GetPosition(direction) * creature.Speed + SizeMap) % SizeMap;
-
+            
             Position differencePos = newAccuratePosByDesiredDir - creature.AccuratePosition.Normalize();
             int absPos = Math.Abs(differencePos.x) + Math.Abs(differencePos.y);
             if (absPos < creature.Speed * 2 &&
