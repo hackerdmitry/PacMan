@@ -48,12 +48,13 @@ namespace PacMan
         {
             Position newAccuratePosByDesiredDir =
                 (creature.AccuratePosition + GetPosition(direction) * creature.Speed + SizeMap) % SizeMap;
-            
+
             Position differencePos = newAccuratePosByDesiredDir - creature.AccuratePosition.Normalize();
             int absPos = Math.Abs(differencePos.x) + Math.Abs(differencePos.y);
             if (absPos < creature.Speed * 2 &&
                 direction != creature.CurrentDirection &&
-                !Map.GetField(newAccuratePosByDesiredDir.Normalize() / Map.LENGTH_CELL + GetPosition(direction)).IsWall)
+                !Map.GetField(Map.GetPositionInMap(newAccuratePosByDesiredDir.Normalize() / Map.LENGTH_CELL +
+                                                   GetPosition(direction))).IsWall)
             {
                 creature.CurrentDirection = direction;
                 return creature.AccuratePosition.Normalize() + GetPosition(direction) * absPos;

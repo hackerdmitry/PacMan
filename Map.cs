@@ -15,8 +15,6 @@ namespace PacMan
         public PacManWindow PacManWindow { get; }
         public int WidthCountCell { get; }
         public Size SizeCountCells { get; }
-        
-        readonly Timer timer = new Timer();
 
         readonly Dictionary<char, Func<int, int, IField>> dictionaryFields;
 
@@ -47,6 +45,8 @@ namespace PacMan
 
         public IField GetField(Position posRegardingMapCells) => fields[posRegardingMapCells.x, posRegardingMapCells.y];
 
+        public Position GetPositionInMap(Position position) => (position + SizeCountCells) % SizeCountCells; 
+        
         public void OnPaint(PaintEventArgs e)
         {
             for (int i = 0; i < WidthCountCell; i++)
