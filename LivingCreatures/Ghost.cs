@@ -4,6 +4,8 @@ namespace PacMan
 {
     public class Ghost : Creature
     {
+        public override float Speed => 2.5f;
+        
         protected readonly Map Map;
         protected Position Target;
 
@@ -13,8 +15,6 @@ namespace PacMan
             Map = map;
             Target = new Position(0, 5);
         }
-
-        public override float Speed => 1f;
 
 
         public override void Move()

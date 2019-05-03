@@ -31,7 +31,9 @@ namespace PacMan
                                                     (int) Math.Round((double) y / Map.LENGTH_CELL) * Map.LENGTH_CELL);
         
         public Position Flip() => new Position(Y, X);
-            
+
+        public float Length() => (float) Math.Sqrt(X * X + Y * Y);
+        
         public static Position operator +(Position pos1, Position pos2)
             => new Position(pos1.X + pos2.X, pos1.Y + pos2.Y);
 

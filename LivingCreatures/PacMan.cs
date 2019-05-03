@@ -7,7 +7,7 @@ namespace PacMan
 {
     public class PacMan : Creature
     {
-        public override float Speed => 1.5f;
+        public override float Speed => 3f;
 
         public PacMan(GameController gameController, Position accuratePostion) :
             base(gameController, accuratePostion,
