@@ -33,7 +33,7 @@ namespace PacMan
             //TODO брать позиции существ из файла
             creatures = new List<Creature>
             {
-                new PacMan(this, new Position(1, 1) * Map.LENGTH_CELL),
+                new PacMan(this, new Position(11, 16) * Map.LENGTH_CELL),
                 new ShadowGhost(this, new Position(21, 5) * Map.LENGTH_CELL, map),
                 new RoflGhost(this, new Position(21, 5) * Map.LENGTH_CELL, map)
             };

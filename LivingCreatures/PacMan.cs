@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -18,6 +19,14 @@ namespace PacMan
         public override void Move()
         {
             base.Move();
+            List<KeyValuePair<Position, IDots>> eatenDots = GameController.Map.MapDots
+                .Where(x =>
+                {
+                    Position difPos = AccuratePosition - x.Key;
+                    return difPos.Length() < Speed;
+                })
+                .ToList();
+            GameController.Map.MapDots.EatDots(eatenDots);
             GameController.PacManWindow.Text = $@"PacMan {AccuratePosition.x} {AccuratePosition.y}";
         }
 

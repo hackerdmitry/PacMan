@@ -20,8 +20,6 @@ namespace PacMan
             MakeDots();
         }
 
-        public IDots this[Position position] => dots[position];
-
         void MakeDots()
         {
             string[] notParsedEnergizers = new StreamReader($"{map.PacManWindow.folderLevelPath}/energizers.txt")
@@ -40,7 +38,12 @@ namespace PacMan
                 for (int j = 0; j < map.WidthCountCell; j++)
                     if (CharDots[i, j] == 'd')
                         directions.ForEach(x => MakeDotRay(new Position(i, j), x));
-//            dots[i, j] = dictionaryFields[CharFields[j, i]](j, i);
+        }
+
+        public void EatDots(IEnumerable<KeyValuePair<Position,IDots>> eatenDots)
+        {
+            foreach (KeyValuePair<Position, IDots> eatenDot in eatenDots)
+                dots.Remove(eatenDot.Key);
         }
 
         void MakeDotRay(Position start, Position direction)

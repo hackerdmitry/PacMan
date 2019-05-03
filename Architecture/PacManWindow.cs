@@ -36,6 +36,7 @@ namespace PacMan
             gameController = new GameController(this, new Map(charFields, charDots, this), GetTimer());
             Width = Map.LENGTH_CELL * gameController.Map.WidthCountCell + FrameSize.Width;
             Height = Map.LENGTH_CELL * gameController.Map.HeightCountCell + FrameSize.Height;
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
         Timer GetTimer()

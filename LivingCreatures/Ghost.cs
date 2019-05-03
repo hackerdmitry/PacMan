@@ -1,11 +1,12 @@
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace PacMan
 {
     public class Ghost : Creature
     {
         public override float Speed => 2.5f;
-        
+
         protected readonly Map Map;
         protected Position Target;
 
@@ -23,6 +24,9 @@ namespace PacMan
             desiredDirection =
                 GameController.GetDirection(BreadthFirstSearch.FindNextPosition(Map, anotherPos, Target) - anotherPos);
             base.Move();
+            if ((Map.PacManWindow.gameController.creatures[0].AccuratePosition - AccuratePosition).Length() <
+                Map.LENGTH_CELL)
+                GameController.PacManWindow.Close();
         }
     }
 }
