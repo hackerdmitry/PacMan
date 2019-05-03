@@ -8,7 +8,7 @@ namespace PacMan
     public class Map
     {
         public const int LENGTH_CELL = 32; // кратно DEFAULT_LENGTH_CELL
-        public const int DEFAULT_LENGTH_CELL = 8;
+        public const int DEFAULT_LENGTH_CELL = 4;
         public readonly MapDots MapDots;
         public MapFields MapFields;
         public int HeightCountCell { get; }

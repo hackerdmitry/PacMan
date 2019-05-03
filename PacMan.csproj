@@ -95,6 +95,8 @@
   <ItemGroup>
     <Content Include="Levels\demo.txt" />
     <Content Include="Levels\fields_level_1.txt" />
+    <Content Include="Pictures\Dots\Dot.png" />
+    <Content Include="Pictures\Dots\Energizer.png" />
     <Content Include="Pictures\Fields\SimpleField.png" />
     <Content Include="Pictures\Fields\SimpleField1.png" />
     <Content Include="Pictures\Fields\VoidField.png" />
