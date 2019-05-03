@@ -15,7 +15,8 @@ namespace PacMan
         protected int iAnimation;
         protected Bitmap[] animation;
 
-        protected Creature(GameController gameController, Position accuratePostion, Bitmap[] animation)
+        protected Creature(GameController gameController, Position accuratePostion, Bitmap[] animation,
+                           int intervalAnimation)
         {
             CurrentDirection = Direction.Right;
             desiredDirection = CurrentDirection;
@@ -24,7 +25,7 @@ namespace PacMan
             lastAccuratePosition = AccuratePosition;
             GameController = gameController;
             Timer timer = new Timer();
-            timer.Interval = 100;
+            timer.Interval = intervalAnimation;
             timer.Tick += (s, e) =>
             {
                 if (!(lastAccuratePosition - AccuratePosition).Equals(Position.Empty))

@@ -10,7 +10,7 @@ namespace PacMan
         static void Main()
         {
             Game.CreateMap();
-            Application.Run(new PacManWindow());
+            Application.Run(new PacManWindow("../../Levels/StandartMap"));
         }
     }
 }

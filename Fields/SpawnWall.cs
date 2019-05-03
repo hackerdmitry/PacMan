@@ -16,7 +16,8 @@ namespace PacMan
                                 $"{GetIntCell(map, X + 1, Y)}.png");
         }
 
-        int GetIntCell(Map map, int x, int y) => map.IsCorrectPos(y, x) && map.charFields[x, y] == 's' ? 1 : 0;
+        int GetIntCell(Map map, int x, int y) =>
+            map.IsCorrectPos(y, x) && map.MapFields.CharFields[x, y] == 's' ? 1 : 0;
 
         public int X { get; }
         public int Y { get; }

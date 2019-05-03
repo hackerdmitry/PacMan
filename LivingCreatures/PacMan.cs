@@ -11,7 +11,8 @@ namespace PacMan
 
         public PacMan(GameController gameController, Position accuratePostion) :
             base(gameController, accuratePostion,
-                 Directory.GetFiles("../../Pictures/Player").Select(x => new Bitmap(x)).ToArray()) =>
+                 Directory.GetFiles("../../Pictures/Player").Select(x => new Bitmap(x)).ToArray(),
+                 50) =>
             GameController.PacManWindow.KeyDown += ChangeDirection;
 
         public override void Move()

@@ -10,23 +10,30 @@ namespace PacMan
     {
         readonly Size FrameSize = new Size(17, 39);
         public readonly GameController gameController;
+        public readonly string folderLevelPath;
 
-        public PacManWindow()
+        public PacManWindow(string folderLevelPath)
         {
+            this.folderLevelPath = folderLevelPath;
             DoubleBuffered = true;
             BackColor = Color.Black;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Text = "PacMan";
 
-            string[] notParsedMap = new StreamReader("../../Levels/fields_level_1.txt").ReadToEnd()
-//            string[] notParsedMap = new StreamReader("../../Levels/demo.txt").ReadToEnd()
+            string[] notParsedFields = new StreamReader($"{folderLevelPath}/fields.txt").ReadToEnd()
                 .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            char[,] charFields = new char[notParsedMap.Length, notParsedMap[0].Length];
+            string[] notParsedDots = new StreamReader($"{folderLevelPath}/dots.txt").ReadToEnd()
+                .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            char[,] charFields = new char[notParsedFields.Length, notParsedFields[0].Length];
+            char[,] charDots = new char[notParsedDots.Length, notParsedDots[0].Length];
             for (int i = 0; i < charFields.GetLength(0); i++)
                 for (int j = 0; j < charFields.GetLength(1); j++)
-                    charFields[i, j] = notParsedMap[i][j];
-            gameController = new GameController(this, new Map(charFields, this), GetTimer());
+                {
+                    charFields[i, j] = notParsedFields[i][j];
+                    charDots[i, j] = notParsedDots[i][j];
+                }
+            gameController = new GameController(this, new Map(charFields, charDots, this), GetTimer());
             Width = Map.LENGTH_CELL * gameController.Map.WidthCountCell + FrameSize.Width;
             Height = Map.LENGTH_CELL * gameController.Map.HeightCountCell + FrameSize.Height;
         }

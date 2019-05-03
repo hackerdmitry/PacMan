@@ -29,7 +29,9 @@ namespace PacMan
 
         public Position Normalize() => new Position((int) Math.Round((double) x / Map.LENGTH_CELL) * Map.LENGTH_CELL,
                                                     (int) Math.Round((double) y / Map.LENGTH_CELL) * Map.LENGTH_CELL);
-
+        
+        public Position Flip() => new Position(Y, X);
+            
         public static Position operator +(Position pos1, Position pos2)
             => new Position(pos1.X + pos2.X, pos1.Y + pos2.Y);
 
@@ -37,6 +39,9 @@ namespace PacMan
             => new Position(pos1.X + pos2.Width, pos1.Y + pos2.Height);
 
         public static Position operator +(Position pos1, int num)
+            => new Position(pos1.X + num, pos1.Y + num);
+
+        public static Position operator +(Position pos1, float num)
             => new Position(pos1.X + num, pos1.Y + num);
 
         public static Position operator -(Position pos1, Position pos2)

@@ -1,6 +1,4 @@
 using System.Drawing;
-using System.IO;
-using System.Linq;
 
 namespace PacMan
 {
@@ -10,7 +8,7 @@ namespace PacMan
         protected Position Target;
 
         protected Ghost(GameController gameController, Position accuratePostion, Bitmap[] animation, Map map) : base(
-            gameController, accuratePostion, animation)
+            gameController, accuratePostion, animation, 100)
         {
             Map = map;
             Target = new Position(0, 5);

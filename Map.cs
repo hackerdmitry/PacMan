@@ -9,41 +9,33 @@ namespace PacMan
     {
         public const int LENGTH_CELL = 32; // кратно DEFAULT_LENGTH_CELL
         public const int DEFAULT_LENGTH_CELL = 8;
-        public readonly IField[,] fields;
-        public readonly char[,] charFields;
+        public readonly MapDots MapDots;
+        public MapFields MapFields;
         public int HeightCountCell { get; }
         public PacManWindow PacManWindow { get; }
         public int WidthCountCell { get; }
         public Size SizeCountCells { get; }
 
-        readonly Dictionary<char, Func<int, int, IField>> dictionaryFields;
-
-        public Map(char[,] charFields, PacManWindow pacManWindow)
+        public Map(char[,] charFields, char[,] charDots, PacManWindow pacManWindow)
         {
             PacManWindow = pacManWindow;
             WidthCountCell = charFields.GetLength(1);
             HeightCountCell = charFields.GetLength(0);
             SizeCountCells = new Size(WidthCountCell, HeightCountCell);
-            fields = new IField[WidthCountCell, HeightCountCell];
-            this.charFields = charFields;
-            dictionaryFields = new Dictionary<char, Func<int, int, IField>>
-            {
-                {'w', (x, y) => new Wall(this, x, y)},
-                {'s', (x, y) => new SpawnWall(this, x, y)},
-                {'l', (x, y) => new SpawnLine(x, y)},
-                {' ', (x, y) => new SimpleField(x, y)},
-                {'0', (x, y) => new VoidField(x, y)}
-            };
+            InitMapFields(charFields);
+            MapDots = new MapDots(charDots, this);
+        }
 
-            for (int i = 0; i < WidthCountCell; i++)
-                for (int j = 0; j < HeightCountCell; j++)
-                        fields[i, j] = dictionaryFields[charFields[j, i]](j, i);
+        void InitMapFields(char[,] charFields)
+        {
+            MapFields = new MapFields(charFields, this);
+            MapFields.MakeFields();
         }
 
         public bool IsCorrectPos(int x, int y) =>
-            x >= 0 && y >= 0 && x < fields.GetLength(0) && y < fields.GetLength(1);
+            x >= 0 && y >= 0 && x < HeightCountCell && y < WidthCountCell;
 
-        public IField GetField(Position posRegardingMapCells) => fields[posRegardingMapCells.x, posRegardingMapCells.y];
+        public IField GetField(Position posRegardingMapCells) => MapFields[posRegardingMapCells.x, posRegardingMapCells.y];
 
         public Position GetPositionInMap(Position position) => (position + SizeCountCells) % SizeCountCells; 
         
@@ -51,7 +43,9 @@ namespace PacMan
         {
             for (int i = 0; i < WidthCountCell; i++)
                 for (int j = 0; j < HeightCountCell; j++)
-                    GameController.DrawImageRegardingMapCells(e, fields[i, j].Bitmap, new Position(i, j));
+                    GameController.DrawImageRegardingMapCells(e, MapFields[i, j].Bitmap, new Position(i, j));
+            foreach (KeyValuePair<Position,IDots> mapDot in MapDots)
+                GameController.DrawImageAccuratePos(e, mapDot.Value.Bitmap, mapDot.Key);
         }
     }
 }
