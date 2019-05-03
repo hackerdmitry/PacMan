@@ -108,6 +108,14 @@
     <Content Include="Pictures\Player\Player1.png" />
     <Content Include="Pictures\Player\Player2.png" />
     <Content Include="Pictures\Player\Player3.png" />
+    <Content Include="Pictures\RoflGhost\RoflDown\Shadow1.png" />
+    <Content Include="Pictures\RoflGhost\RoflDown\Shadow2.png" />
+    <Content Include="Pictures\RoflGhost\RoflLeft\Shadow1.png" />
+    <Content Include="Pictures\RoflGhost\RoflLeft\Shadow2.png" />
+    <Content Include="Pictures\RoflGhost\RoflRight\Shadow1.png" />
+    <Content Include="Pictures\RoflGhost\RoflRight\Shadow2.png" />
+    <Content Include="Pictures\RoflGhost\RoflUp\Shadow1.png" />
+    <Content Include="Pictures\RoflGhost\RoflUp\Shadow2.png" />
     <Content Include="Pictures\ShadowGhost\ShadowDown\Shadow1.png" />
     <Content Include="Pictures\ShadowGhost\ShadowDown\Shadow2.png" />
     <Content Include="Pictures\ShadowGhost\ShadowLeft\Shadow1.png" />
