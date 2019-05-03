@@ -23,11 +23,13 @@ namespace PacMan
         public readonly List<Creature> creatures;
 
         public Size SizeMap { get; }
+        Timer timer;
 
         public GameController(PacManWindow pacManWindow, Map map, Timer timer)
         {
             PacManWindow = pacManWindow;
             Map = map;
+            this.timer = timer;
             SizeMap = new Size(Map.WidthCountCell * Map.LENGTH_CELL, Map.HeightCountCell * Map.LENGTH_CELL);
             timer.Tick += TimerTick;
             //TODO брать позиции существ из файла
@@ -115,10 +117,7 @@ namespace PacMan
                               Map.LENGTH_CELL, Map.LENGTH_CELL));
 
         public static void DrawImageRegardingMapCells(PaintEventArgs e, Bitmap image, Position accuratePosition) =>
-            e.Graphics.DrawImage(
-                image,
-                new Rectangle(accuratePosition.x * Map.LENGTH_CELL, accuratePosition.y * Map.LENGTH_CELL,
-                              Map.LENGTH_CELL, Map.LENGTH_CELL));
+            DrawImageAccuratePos(e, image, accuratePosition * Map.LENGTH_CELL);
 
         public void OnPaint(PaintEventArgs e)
         {
@@ -141,6 +140,12 @@ namespace PacMan
                                                                       creature.AccuratePosition.y + y));
             }
             e.Graphics.ResetTransform();
+        }
+
+        public void Dispose()
+        {
+            timer.Stop();
+            creatures.ForEach(x => x.timer.Stop());
         }
     }
 }

@@ -1,17 +1,19 @@
-﻿using System;
-using System.Threading;
-using System.Windows.Forms;
-using Timer = System.Windows.Forms.Timer;
+﻿﻿using System.Windows.Forms;
 
 namespace PacMan
 {
     static class Program
     {
+        public static bool restart = true;
+        
         static void Main()
         {
             Game.CreateMap();
-            while (true)
+            while (restart)
+            {
+                restart = false;
                 Application.Run(new PacManWindow("../../Levels/StandartMap"));
+            }
         }
     }
 }

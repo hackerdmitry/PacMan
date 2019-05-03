@@ -14,6 +14,7 @@ namespace PacMan
         protected Direction desiredDirection;
         protected int iAnimation;
         protected Bitmap[] animation;
+        public readonly Timer timer;
 
         protected Creature(GameController gameController, Position accuratePostion, Bitmap[] animation,
                            int intervalAnimation)
@@ -24,7 +25,7 @@ namespace PacMan
             this.animation = animation;
             lastAccuratePosition = AccuratePosition;
             GameController = gameController;
-            Timer timer = new Timer();
+            timer = new Timer();
             timer.Interval = intervalAnimation;
             timer.Tick += (s, e) =>
             {

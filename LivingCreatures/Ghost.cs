@@ -17,16 +17,15 @@ namespace PacMan
             Target = new Position(0, 5);
         }
 
-
         public override void Move()
         {
             Position anotherPos = AccuratePosition / Map.LENGTH_CELL;
             desiredDirection =
                 GameController.GetDirection(BreadthFirstSearch.FindNextPosition(Map, anotherPos, Target) - anotherPos);
             base.Move();
-            if ((Map.PacManWindow.gameController.creatures[0].AccuratePosition - AccuratePosition).Length() <
+            if ((Map.PacManWindow.GameController.creatures[0].AccuratePosition - AccuratePosition).Length() <
                 Map.LENGTH_CELL)
-                GameController.PacManWindow.Close();
+                GameController.PacManWindow.Restart();
         }
     }
 }

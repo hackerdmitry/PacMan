@@ -23,7 +23,7 @@ namespace PacMan
 
         public override void Move()
         {
-            Target = Map.PacManWindow.gameController.creatures[0].AccuratePosition / Map.LENGTH_CELL;
+            Target = Map.PacManWindow.GameController.creatures[0].AccuratePosition / Map.LENGTH_CELL;
             base.Move();
             animation = animations[(int)CurrentDirection];
         }

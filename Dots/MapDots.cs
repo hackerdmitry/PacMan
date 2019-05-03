@@ -22,7 +22,7 @@ namespace PacMan
 
         void MakeDots()
         {
-            string[] notParsedEnergizers = new StreamReader($"{map.PacManWindow.folderLevelPath}/energizers.txt")
+            string[] notParsedEnergizers = new StreamReader($"{map.PacManWindow.FolderLevelPath}/energizers.txt")
                 .ReadToEnd()
                 .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();
             foreach (string energizerPos in notParsedEnergizers)

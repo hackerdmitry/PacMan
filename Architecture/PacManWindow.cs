@@ -8,22 +8,27 @@ namespace PacMan
 {
     public class PacManWindow : Form
     {
-        readonly Size FrameSize = new Size(17, 39);
-        public readonly GameController gameController;
-        public readonly string folderLevelPath;
+        readonly Size frameSize = new Size(17, 39);
+        public GameController GameController { get; private set; }
+        public readonly string FolderLevelPath;
 
         public PacManWindow(string folderLevelPath)
         {
-            this.folderLevelPath = folderLevelPath;
+            FolderLevelPath = folderLevelPath;
+            StartGame();
+        }
+
+        void StartGame()
+        {
             DoubleBuffered = true;
             BackColor = Color.Black;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Text = "PacMan";
 
-            string[] notParsedFields = new StreamReader($"{folderLevelPath}/fields.txt").ReadToEnd()
+            string[] notParsedFields = new StreamReader($"{FolderLevelPath}/fields.txt").ReadToEnd()
                 .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            string[] notParsedDots = new StreamReader($"{folderLevelPath}/dots.txt").ReadToEnd()
+            string[] notParsedDots = new StreamReader($"{FolderLevelPath}/dots.txt").ReadToEnd()
                 .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();
             char[,] charFields = new char[notParsedFields.Length, notParsedFields[0].Length];
             char[,] charDots = new char[notParsedDots.Length, notParsedDots[0].Length];
@@ -33,9 +38,9 @@ namespace PacMan
                     charFields[i, j] = notParsedFields[i][j];
                     charDots[i, j] = notParsedDots[i][j];
                 }
-            gameController = new GameController(this, new Map(charFields, charDots, this), GetTimer());
-            Width = Map.LENGTH_CELL * gameController.Map.WidthCountCell + FrameSize.Width;
-            Height = Map.LENGTH_CELL * gameController.Map.HeightCountCell + FrameSize.Height;
+            GameController = new GameController(this, new Map(charFields, charDots, this), GetTimer());
+            Width = Map.LENGTH_CELL * GameController.Map.WidthCountCell + frameSize.Width;
+            Height = Map.LENGTH_CELL * GameController.Map.HeightCountCell + frameSize.Height;
             StartPosition = FormStartPosition.CenterScreen;
         }
 
@@ -51,9 +56,16 @@ namespace PacMan
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            gameController.OnPaint(e);
+            GameController.OnPaint(e);
         }
 
         void TimerTick(object sender, EventArgs args) { Invalidate(); }
+
+        public void Restart()
+        {
+            GameController.Dispose();
+            Program.restart = true;
+            Close();
+        }
     }
 }
