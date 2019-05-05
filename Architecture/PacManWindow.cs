@@ -40,7 +40,8 @@ namespace PacMan
                 }
             GameController = new GameController(this, new Map(charFields, charDots, this), GetTimer());
             Width = Map.LENGTH_CELL * GameController.Map.WidthCountCell + frameSize.Width;
-            Height = Map.LENGTH_CELL * GameController.Map.HeightCountCell + frameSize.Height;
+            Height = Map.LENGTH_CELL * GameController.Map.HeightCountCell + frameSize.Height +
+                     GameController.Score.Height + GameController.Footer.Height;
             StartPosition = FormStartPosition.CenterScreen;
         }
 

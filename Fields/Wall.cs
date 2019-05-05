@@ -1,18 +1,7 @@
-using System.Collections.Generic;
 using System.Drawing;
 
 namespace PacMan
 {
-    enum Walls
-    {
-        HorizontalWall,
-        VerticalWall,
-        WallToUp,
-        WallToRight,
-        WallToLeft,
-        WallToDown
-    }
-
     public class Wall : IField
     {
         public Wall(Map map, int x, int y)

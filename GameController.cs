@@ -18,6 +18,8 @@ namespace PacMan
     public class GameController
     {
         public Map Map { get; }
+        public Score Score { get; }
+        public Footer Footer { get; }
         public PacManWindow PacManWindow { get; }
 
         public readonly List<Creature> creatures;
@@ -29,8 +31,11 @@ namespace PacMan
         {
             PacManWindow = pacManWindow;
             Map = map;
+            Score = new Score(this);
+            Footer = new Footer(this);
             this.timer = timer;
-            SizeMap = new Size(Map.WidthCountCell * Map.LENGTH_CELL, Map.HeightCountCell * Map.LENGTH_CELL);
+            SizeMap = new Size(Map.WidthCountCell * Map.LENGTH_CELL, 
+                               Map.HeightCountCell * Map.LENGTH_CELL);
             timer.Tick += TimerTick;
             //TODO брать позиции существ из файла
             creatures = new List<Creature>
@@ -110,13 +115,13 @@ namespace PacMan
             return position.y < 0 ? Direction.Down : Direction.Up;
         }
 
-        public static void DrawImageAccuratePos(PaintEventArgs e, Bitmap image, Position accuratePosition) =>
+        public void DrawImageAccuratePos(PaintEventArgs e, Bitmap image, Position accuratePosition) =>
             e.Graphics.DrawImage(
                 image,
-                new Rectangle(accuratePosition.x, accuratePosition.y,
+                new Rectangle(accuratePosition.x, Score.Height + accuratePosition.y,
                               Map.LENGTH_CELL, Map.LENGTH_CELL));
 
-        public static void DrawImageRegardingMapCells(PaintEventArgs e, Bitmap image, Position accuratePosition) =>
+        public void DrawImageRegardingMapCells(PaintEventArgs e, Bitmap image, Position accuratePosition) =>
             DrawImageAccuratePos(e, image, accuratePosition * Map.LENGTH_CELL);
 
         public void OnPaint(PaintEventArgs e)

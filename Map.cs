@@ -35,17 +35,19 @@ namespace PacMan
         public bool IsCorrectPos(int x, int y) =>
             x >= 0 && y >= 0 && x < HeightCountCell && y < WidthCountCell;
 
-        public IField GetField(Position posRegardingMapCells) => MapFields[posRegardingMapCells.x, posRegardingMapCells.y];
+        public IField GetField(Position posRegardingMapCells) =>
+            MapFields[posRegardingMapCells.x, posRegardingMapCells.y];
 
-        public Position GetPositionInMap(Position position) => (position + SizeCountCells) % SizeCountCells; 
-        
+        public Position GetPositionInMap(Position position) => (position + SizeCountCells) % SizeCountCells;
+
         public void OnPaint(PaintEventArgs e)
         {
             for (int i = 0; i < WidthCountCell; i++)
                 for (int j = 0; j < HeightCountCell; j++)
-                    GameController.DrawImageRegardingMapCells(e, MapFields[i, j].Bitmap, new Position(i, j));
-            foreach (KeyValuePair<Position,IDots> mapDot in MapDots)
-                GameController.DrawImageAccuratePos(e, mapDot.Value.Bitmap, mapDot.Key);
+                    PacManWindow.GameController.DrawImageRegardingMapCells(
+                        e, MapFields[i, j].Bitmap, new Position(i, j));
+            foreach (KeyValuePair<Position, IDots> mapDot in MapDots)
+                PacManWindow.GameController.DrawImageAccuratePos(e, mapDot.Value.Bitmap, mapDot.Key);
         }
     }
 }
