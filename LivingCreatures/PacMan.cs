@@ -8,7 +8,7 @@ namespace PacMan
 {
     public class PacMan : Creature
     {
-        public override float Speed => 3f;
+        public override float Speed { get; protected set; } = 3f;
 
         public PacMan(GameController gameController, Position accuratePostion) :
             base(gameController, accuratePostion,
@@ -27,6 +27,11 @@ namespace PacMan
                 })
                 .ToList();
             GameController.Map.MapDots.EatDots(eatenDots);
+            eatenDots.ForEach(x =>
+            {
+                GameController.Score.AddScore(x.Value.Value);
+                x.Value.Act(GameController);
+            });
             GameController.PacManWindow.Text = $@"PacMan {AccuratePosition.x} {AccuratePosition.y}";
         }
 

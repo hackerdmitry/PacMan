@@ -6,7 +6,7 @@ namespace PacMan
     {
         int X { get; }
         int Y { get; }
-        bool IsWall { get; }
+        bool IsWall(Creature creature);
         Bitmap Bitmap { get; }
     }
 }

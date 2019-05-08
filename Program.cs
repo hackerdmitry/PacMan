@@ -1,11 +1,11 @@
-﻿﻿using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace PacMan
 {
     static class Program
     {
         public static bool restart = true;
-        
+
         static void Main()
         {
             Game.CreateMap();

@@ -14,18 +14,17 @@ namespace PacMan
             Directory.GetFiles("../../Pictures/ShadowGhost/ShadowUp").Select(x => new Bitmap(x)).ToArray(),
             Directory.GetFiles("../../Pictures/ShadowGhost/ShadowLeft").Select(x => new Bitmap(x)).ToArray()
         };
-        
+
         public ShadowGhost(GameController gameController, Position accuratePostion, Map map) : base(
             gameController, accuratePostion,
             animations[0], map) { }
-
-        public override Bitmap Bitmap => animation[iAnimation];
 
         public override void Move()
         {
             Target = Map.PacManWindow.GameController.creatures[0].AccuratePosition / Map.LENGTH_CELL;
             base.Move();
-            animation = animations[(int)CurrentDirection];
+            if (OldAnimations == null)
+                animation = animations[(int) CurrentDirection];
         }
     }
 }

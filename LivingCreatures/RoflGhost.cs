@@ -19,8 +19,6 @@ namespace PacMan
             animations[0], map) =>
             Target = way[iWay++];
 
-        public override Bitmap Bitmap => animation[iAnimation];
-
         public override float Speed => 5f;
 
         readonly Position[] way =
@@ -40,7 +38,8 @@ namespace PacMan
                 iWay %= way.Length;
             }
             base.Move();
-            animation = animations[(int) CurrentDirection];
+            if (OldAnimations == null)
+                animation = animations[(int) CurrentDirection];
         }
     }
 }

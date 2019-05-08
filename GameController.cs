@@ -34,7 +34,7 @@ namespace PacMan
             Score = new Score(this);
             Footer = new Footer(this);
             this.timer = timer;
-            SizeMap = new Size(Map.WidthCountCell * Map.LENGTH_CELL, 
+            SizeMap = new Size(Map.WidthCountCell * Map.LENGTH_CELL,
                                Map.HeightCountCell * Map.LENGTH_CELL);
             timer.Tick += TimerTick;
             //TODO брать позиции существ из файла
@@ -62,14 +62,14 @@ namespace PacMan
             if (absPos < creature.Speed * 2 &&
                 direction != creature.CurrentDirection &&
                 !Map.GetField(Map.GetPositionInMap(newAccuratePosByDesiredDir.Normalize() / Map.LENGTH_CELL +
-                                                   GetPosition(direction))).IsWall)
+                                                   GetPosition(direction))).IsWall(creature))
             {
                 creature.CurrentDirection = direction;
                 return creature.AccuratePosition.Normalize() + GetPosition(direction) * absPos;
             }
 
             if (GetCellsRegardingEdges(newAccuratePosByDesiredDir)
-                    .Any(x => Map.GetField((x + Map.SizeCountCells) % Map.SizeCountCells).IsWall) ||
+                    .Any(x => Map.GetField((x + Map.SizeCountCells) % Map.SizeCountCells).IsWall(creature)) ||
                 newAccuratePosByDesiredDir.x % Map.LENGTH_CELL != 0 &&
                 newAccuratePosByDesiredDir.y % Map.LENGTH_CELL != 0)
             {
@@ -77,7 +77,7 @@ namespace PacMan
                     (creature.AccuratePosition + GetPosition(creature.CurrentDirection) * creature.Speed + SizeMap) %
                     SizeMap;
                 return GetCellsRegardingEdges(newAccuratePosByCurrentDir)
-                    .Any(x => Map.GetField((x + Map.SizeCountCells) % Map.SizeCountCells).IsWall)
+                    .Any(x => Map.GetField((x + Map.SizeCountCells) % Map.SizeCountCells).IsWall(creature))
                     ? creature.AccuratePosition.Normalize()
                     : newAccuratePosByCurrentDir;
             }
@@ -124,9 +124,15 @@ namespace PacMan
         public void DrawImageRegardingMapCells(PaintEventArgs e, Bitmap image, Position accuratePosition) =>
             DrawImageAccuratePos(e, image, accuratePosition * Map.LENGTH_CELL);
 
+        public void ToBlueFearGhosts() => creatures.ForEach(x =>
+        {
+            if (x is Ghost ghost) ghost.ToBlueFear();
+        });
+
         public void OnPaint(PaintEventArgs e)
         {
             Map.OnPaint(e);
+            Score.OnPaint(e);
             foreach (Creature creature in creatures)
             {
                 Position rightBottomEdge = creature.AccuratePosition + (Map.LENGTH_CELL - 1);

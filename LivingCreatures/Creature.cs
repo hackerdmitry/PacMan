@@ -30,17 +30,18 @@ namespace PacMan
             timer.Tick += (s, e) =>
             {
                 if (!(lastAccuratePosition - AccuratePosition).Equals(Position.Empty))
-                    iAnimation = (iAnimation + 1) % animation.Length;
+                    iAnimation = (iAnimation + 1) % this.animation.Length;
             };
             timer.Start();
         }
 
-        public abstract float Speed { get; }
+        public abstract float Speed { get; protected set; }
 
         public virtual Bitmap Bitmap
         {
             get
             {
+                if (iAnimation >= animation.Length) iAnimation = 0;
                 Bitmap necessaryBitmap = (Bitmap) animation[iAnimation].Clone();
                 necessaryBitmap.RotateFlip(GetRotateFlipType(CurrentDirection));
                 return necessaryBitmap;

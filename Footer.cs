@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace PacMan
 {
     public class Footer
@@ -12,6 +14,8 @@ namespace PacMan
             this.gameController = gameController;
             Height = Map.LENGTH_CELL * 2;
         }
+
+        public int GetHealth() => countHealth;
 
         public void LoseHealth() => countHealth--;
     }

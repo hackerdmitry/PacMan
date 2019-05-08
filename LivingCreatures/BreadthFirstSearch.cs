@@ -8,7 +8,7 @@ namespace PacMan
 {
     public static class BreadthFirstSearch
     {
-        public static Position FindNextPosition(Map map, Position start, Position target)
+        public static Position FindNextPosition(Map map, Position start, Position target, Creature creature)
         {
             Queue<LinkedList<Position>> queue = new Queue<LinkedList<Position>>();
             queue.Enqueue(new LinkedList<Position>(new[] {start}));
@@ -18,7 +18,7 @@ namespace PacMan
             {
                 LinkedList<Position> singlyLinkedList = queue.Dequeue();
                 Position point = map.GetPositionInMap(singlyLinkedList.Last.Value);
-                if (map.MapFields[point.x, point.y].IsWall ||
+                if (map.MapFields[point.x, point.y].IsWall(creature) ||
                     visited.Contains(point)) continue;
                 visited.Add(point);
                 if (point.Equals(target)) return singlyLinkedList.First.Next?.Value ?? target;

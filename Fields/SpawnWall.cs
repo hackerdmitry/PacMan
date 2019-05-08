@@ -21,7 +21,7 @@ namespace PacMan
 
         public int X { get; }
         public int Y { get; }
-        public bool IsWall => true;
+        public bool IsWall(Creature creature) => true;
         public Bitmap Bitmap { get; }
     }
 }

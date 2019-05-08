@@ -15,6 +15,9 @@ namespace PacMan
         public PacManWindow PacManWindow { get; }
         public int WidthCountCell { get; }
         public Size SizeCountCells { get; }
+        readonly Position[] bases;
+        readonly Random rand = new Random();
+        public Position Base => bases[rand.Next(0, bases.Length)];
 
         public Map(char[,] charFields, char[,] charDots, PacManWindow pacManWindow)
         {
@@ -22,6 +25,12 @@ namespace PacMan
             WidthCountCell = charFields.GetLength(1);
             HeightCountCell = charFields.GetLength(0);
             SizeCountCells = new Size(WidthCountCell, HeightCountCell);
+            //TODO костыль
+            bases = new[]
+            {
+                new Position(10, 10),
+                new Position(12, 10)
+            };
             InitMapFields(charFields);
             MapDots = new MapDots(charDots, this);
         }
