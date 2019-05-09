@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace PacMan
@@ -9,12 +10,30 @@ namespace PacMan
     public class PacMan : Creature
     {
         public override float Speed { get; protected set; } = 3f;
+        bool isDied;
+
+        static readonly Bitmap[] diedPacman =
+            Directory.GetFiles("../../Pictures/PlayerDied").Select(x => new Bitmap(x)).ToArray();
 
         public PacMan(GameController gameController, Position accuratePostion) :
             base(gameController, accuratePostion,
                  Directory.GetFiles("../../Pictures/Player").Select(x => new Bitmap(x)).ToArray(),
                  50) =>
             GameController.PacManWindow.KeyDown += ChangeDirection;
+
+        public override Bitmap Bitmap
+        {
+            get
+            {
+                if (!isDied) return base.Bitmap;
+                if (iAnimation == diedPacman.Length - 1)
+                {
+                    GameController.StopTimer();
+                    GameController.PacManWindow.Close();
+                }
+                return animation[iAnimation];
+            }
+        }
 
         public override void Move()
         {
@@ -56,6 +75,14 @@ namespace PacMan
                     desiredDirection = Direction.Left;
                     break;
             }
+        }
+
+        public void Die()
+        {
+            animation = diedPacman;
+            isDied = true;
+            PlayAnyway = true;
+            timer.Interval = 100;
         }
     }
 }

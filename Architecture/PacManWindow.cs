@@ -50,7 +50,7 @@ namespace PacMan
             Timer timer = new Timer();
             timer.Interval = 32 * Map.DEFAULT_LENGTH_CELL / Map.LENGTH_CELL;
             timer.Enabled = true;
-            timer.Tick += TimerTick;
+            timer.Tick += (o, args) => Invalidate();
             return timer;
         }
 
@@ -60,13 +60,10 @@ namespace PacMan
             GameController.OnPaint(e);
         }
 
-        void TimerTick(object sender, EventArgs args) { Invalidate(); }
-
         public void Restart()
         {
             GameController.Dispose();
             Program.restart = true;
-            Close();
         }
     }
 }

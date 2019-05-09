@@ -24,6 +24,8 @@ namespace PacMan
 
         public readonly List<Creature> creatures;
 
+        public readonly PacMan Player;
+
         public Size SizeMap { get; }
         Timer timer;
 
@@ -38,9 +40,10 @@ namespace PacMan
                                Map.HeightCountCell * Map.LENGTH_CELL);
             timer.Tick += TimerTick;
             //TODO брать позиции существ из файла
+            Player = new PacMan(this, new Position(11, 16) * Map.LENGTH_CELL);
             creatures = new List<Creature>
             {
-                new PacMan(this, new Position(11, 16) * Map.LENGTH_CELL),
+                Player,
                 new ShadowGhost(this, new Position(21, 5) * Map.LENGTH_CELL, map),
                 new RoflGhost(this, new Position(21, 5) * Map.LENGTH_CELL, map)
             };
@@ -135,6 +138,7 @@ namespace PacMan
             Score.OnPaint(e);
             foreach (Creature creature in creatures)
             {
+                if (!creature.timer.Enabled) continue;
                 Position rightBottomEdge = creature.AccuratePosition + (Map.LENGTH_CELL - 1);
                 DrawImageAccuratePos(e, creature.Bitmap, creature.AccuratePosition);
                 int x = creature.AccuratePosition.x < 0
@@ -155,8 +159,12 @@ namespace PacMan
 
         public void Dispose()
         {
-            timer.Stop();
+            timer.Tick -= TimerTick;
             creatures.ForEach(x => x.timer.Stop());
+            Player.timer.Start();
+            Player.Die();
         }
+
+        public void StopTimer() => timer.Stop();
     }
 }

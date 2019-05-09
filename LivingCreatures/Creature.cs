@@ -15,6 +15,7 @@ namespace PacMan
         protected int iAnimation;
         protected Bitmap[] animation;
         public readonly Timer timer;
+        protected bool PlayAnyway;
 
         protected Creature(GameController gameController, Position accuratePostion, Bitmap[] animation,
                            int intervalAnimation)
@@ -29,7 +30,7 @@ namespace PacMan
             timer.Interval = intervalAnimation;
             timer.Tick += (s, e) =>
             {
-                if (!(lastAccuratePosition - AccuratePosition).Equals(Position.Empty))
+                if (!(lastAccuratePosition - AccuratePosition).Equals(Position.Empty) || PlayAnyway)
                     iAnimation = (iAnimation + 1) % this.animation.Length;
             };
             timer.Start();
