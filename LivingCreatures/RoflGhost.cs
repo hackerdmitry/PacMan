@@ -19,7 +19,7 @@ namespace PacMan
             animations[0], map) =>
             Target = way[iWay++];
 
-        public override float Speed => 5f;
+//        public override float Speed => 5f;
 
         readonly Position[] way =
         {

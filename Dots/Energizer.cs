@@ -7,7 +7,11 @@ namespace PacMan
         public int Value => 50;
         
         public Bitmap Bitmap { get; }
-        public void Act(GameController gameController) { gameController.ToBlueFearGhosts(); }
+
+        public void Act(GameController gameController)
+        {
+            gameController.ToBlueFearGhosts();
+        }
 
         public Energizer() => Bitmap = new Bitmap("../../Pictures/Dots/Energizer.png");
     }

@@ -2,14 +2,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace PacMan
 {
     public class PacMan : Creature
     {
-        public override float Speed { get; protected set; } = 3f;
+        public sealed override float Speed { get; protected set; }
         bool isDied;
         int eatedDots;
 
@@ -23,6 +22,7 @@ namespace PacMan
         {
             GameController.PacManWindow.KeyDown += ChangeDirection;
             this.eatedDots = eatedDots;
+            NormalSpeed();
         }
 
         public override Bitmap Bitmap
@@ -52,12 +52,16 @@ namespace PacMan
                 .Where(x =>
                 {
                     Position difPos = AccuratePosition - x.Key;
-                    return difPos.Length() < Speed;
+                    return difPos.Length() < STANDART_SPEED * 1.5f;
                 })
                 .ToList();
             GameController.Map.MapDots.EatDots(eatenDots, GameController);
             eatedDots += eatenDots.Count;
-            if (eatenDots.Count != 0) GameController.Map.InformFruits(eatedDots);
+            if (eatenDots.Count != 0)
+            {
+                GameController.Map.InformFruits(eatedDots);
+                
+            }
             eatenDots.ForEach(x =>
             {
                 GameController.Score.AddScore(x.Value.Value);
@@ -87,6 +91,22 @@ namespace PacMan
                     desiredDirection = Direction.Left;
                     break;
             }
+        }
+
+        public void SpeedInFear()
+        {
+            if (GameController.Level == 1) Speed = STANDART_SPEED * 0.9f;
+            else if (GameController.Level <= 4) Speed = STANDART_SPEED * 0.95f;
+            else if (GameController.Level <= 20) Speed = STANDART_SPEED;
+            else NormalSpeed();
+        }
+
+        public void NormalSpeed()
+        {
+            if (GameController.Level == 1) Speed = STANDART_SPEED * 0.8f;
+            else if (GameController.Level <= 4) Speed = STANDART_SPEED * 0.9f;
+            else if (GameController.Level <= 20) Speed = STANDART_SPEED;
+            else Speed = STANDART_SPEED * 0.9f;
         }
 
         public void Die()

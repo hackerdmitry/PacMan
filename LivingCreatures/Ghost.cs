@@ -7,10 +7,20 @@ namespace PacMan
 {
     public class Ghost : Creature
     {
-        public override float Speed { get; protected set; } = 2.5f;
-        public static float TimeInBlueFear => 7f;
+        public sealed override float Speed { get; protected set; } = STANDART_SPEED;
+        public static float TimeInBlueFear { get; private set; } = 7f;
         public static float SpeedInBlueFear => 7f;
-        public static float TimeToReminderEndBlueFear => 5f;
+        public static float TimeToReminderEndBlueFear { get; private set; } = 5f;
+        
+        readonly float[] flashesBeforeBlueTime =
+        {
+            5, 5, 5, 5, 5, 5, 5, 5, 3, 5, 5, 3, 3, 5, 3, 3, float.MaxValue, 3, float.MaxValue
+        };
+
+        readonly float[] ghostBlueTime =
+        {
+            6, 5, 4, 3, 2, 5, 2, 2, 1, 5, 2, 1, 1, 3, 1, 1, 0, 1, 0
+        };
 
         protected readonly Map Map;
         protected Position Target;
@@ -18,7 +28,6 @@ namespace PacMan
         bool toBase;
 
         static long startTicksBlueFear;
-        float oldSpeed;
         protected Bitmap[] OldAnimations;
 
         const int START_COMBO_SCORE = 100;
@@ -52,6 +61,10 @@ namespace PacMan
         {
             Map = map;
             Target = new Position(0, 5);
+            int iBlueTime = Math.Min(gameController.Level, ghostBlueTime.Length) - 1;
+            TimeInBlueFear = ghostBlueTime[iBlueTime] + flashesBeforeBlueTime[iBlueTime];
+            TimeToReminderEndBlueFear = flashesBeforeBlueTime[iBlueTime];
+            NormalSpeed();
         }
 
         public override Bitmap Bitmap
@@ -67,11 +80,11 @@ namespace PacMan
         {
             if (toBase) return;
             countGhostsInBlueFear++;
+            GameController.Player.SpeedInFear();
             startTicksBlueFear = DateTime.Now.Ticks;
             OldAnimations = animation;
             animation = blueFearAnimations;
-            oldSpeed = Speed;
-            Speed /= 2;
+            SpeedInFear();
         }
 
         void ToReminderEndBlueFear()
@@ -80,15 +93,35 @@ namespace PacMan
             animation = reminderEndBlueFearAnimations;
         }
 
+        void SpeedInFear()
+        {
+            if (GameController.Level == 1) Speed = STANDART_SPEED * 0.5f;
+            else if (GameController.Level <= 4) Speed = STANDART_SPEED * 0.55f;
+            else if (GameController.Level <= 20) Speed = STANDART_SPEED * 0.6f;
+            else NormalSpeed();
+        }
+
+        void NormalSpeed()
+        {
+            if (GameController.Level == 1) Speed = STANDART_SPEED * 0.75f;
+            else if (GameController.Level <= 4) Speed = STANDART_SPEED * 0.85f;
+            else Speed = STANDART_SPEED * 0.95f;
+        }
+
+        void SpeedToBase() => Speed = SpeedInBlueFear;
+
         void OffBlueFear()
         {
             if (toBase) return;
             countGhostsInBlueFear--;
             if (countGhostsInBlueFear == 0)
+            {
                 comboScore = START_COMBO_SCORE;
+                GameController.Player.NormalSpeed();
+            }
             animation = OldAnimations;
             OldAnimations = null;
-            Speed = oldSpeed;
+            NormalSpeed();
         }
 
         public override void Move()
@@ -100,7 +133,7 @@ namespace PacMan
                 if ((AccuratePosition - Map.Base * Map.LENGTH_CELL).Length() < Map.LENGTH_CELL)
                 {
                     toBase = false;
-                    Speed = oldSpeed;
+                    NormalSpeed();
                     OffBlueFear();
                 }
             }
@@ -116,7 +149,7 @@ namespace PacMan
                 else if (!toBase)
                 {
                     toBase = true;
-                    Speed = SpeedInBlueFear;
+                    SpeedToBase();
                     GameController.Score.AddScore(ComboScore);
                 }
             if (OldAnimations != null)

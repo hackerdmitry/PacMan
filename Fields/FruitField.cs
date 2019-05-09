@@ -6,7 +6,7 @@ namespace PacMan
 {
     public class FruitField : SimpleField
     {
-        readonly int[] fruitSpawnScores = {1, 170};
+        readonly int[] fruitSpawnScores = {70, 170};
         int iFruitSpawnScores;
         bool pickedUp = true;
         long startFruitSpawn;
