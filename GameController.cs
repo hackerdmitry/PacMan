@@ -152,6 +152,9 @@ namespace PacMan
             Score.OnPaint(e);
             Footer.OnPaint(e);
             foreach (Creature creature in creatures)
+                if (creature is Ghost ghost)
+                    ghost.OnPaint(e);
+            foreach (Creature creature in creatures)
             {
                 if (!creature.timer.Enabled) continue;
                 Position rightBottomEdge = creature.AccuratePosition + (Map.LENGTH_CELL - 1);

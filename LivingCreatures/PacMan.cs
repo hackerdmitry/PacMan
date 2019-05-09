@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -11,6 +12,10 @@ namespace PacMan
         public sealed override float Speed { get; protected set; }
         bool isDied;
         int eatedDots;
+
+        long startEatDot;
+        const long durationEatDot = 500 * 10000;
+        bool isEatDot;
 
         static readonly Bitmap[] diedPacman =
             Directory.GetFiles("../../Pictures/Player/Died").Select(x => new Bitmap(x)).ToArray();
@@ -47,6 +52,11 @@ namespace PacMan
 
         public override void Move()
         {
+            if (isEatDot && startEatDot + durationEatDot < DateTime.Now.Ticks)
+            {
+                isEatDot = false;
+                NormalSpeed();
+            }
             base.Move();
             List<KeyValuePair<Position, IDots>> eatenDots = GameController.Map.MapDots
                 .Where(x =>
@@ -60,7 +70,9 @@ namespace PacMan
             if (eatenDots.Count != 0)
             {
                 GameController.Map.InformFruits(eatedDots);
-                
+                startEatDot = DateTime.Now.Ticks;
+                SpeedEatDot();
+                isEatDot = true;
             }
             eatenDots.ForEach(x =>
             {
@@ -99,6 +111,14 @@ namespace PacMan
             else if (GameController.Level <= 4) Speed = STANDART_SPEED * 0.95f;
             else if (GameController.Level <= 20) Speed = STANDART_SPEED;
             else NormalSpeed();
+        }
+
+        public void SpeedEatDot()
+        {
+            if (GameController.Level == 1) Speed = STANDART_SPEED * 0.71f;
+            else if (GameController.Level <= 4) Speed = STANDART_SPEED * 0.79f;
+            else if (GameController.Level <= 20) Speed = STANDART_SPEED * 0.87f;
+            else Speed = STANDART_SPEED * 0.79f;
         }
 
         public void NormalSpeed()

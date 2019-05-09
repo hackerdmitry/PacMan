@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace PacMan
 {
@@ -11,7 +12,7 @@ namespace PacMan
         public static float TimeInBlueFear { get; private set; } = 7f;
         public static float SpeedInBlueFear => 7f;
         public static float TimeToReminderEndBlueFear { get; private set; } = 5f;
-        
+
         readonly float[] flashesBeforeBlueTime =
         {
             5, 5, 5, 5, 5, 5, 5, 5, 3, 5, 5, 3, 3, 5, 3, 3, float.MaxValue, 3, float.MaxValue
@@ -33,6 +34,14 @@ namespace PacMan
         const int START_COMBO_SCORE = 100;
         static int comboScore = START_COMBO_SCORE;
         static int countGhostsInBlueFear;
+
+        readonly Brush brush = new SolidBrush(Color.FromArgb(0x31, 0xFF, 0xFF));
+        readonly Font font = new Font("Joystix", Map.LENGTH_CELL * 0.333f);
+
+        long startScoreSpawn, durationScore;
+        int score;
+        int scoreX, scoreY;
+
         public static int ComboScore
         {
             get
@@ -149,8 +158,13 @@ namespace PacMan
                 else if (!toBase)
                 {
                     toBase = true;
+                    startScoreSpawn = DateTime.Now.Ticks;
+                    durationScore = 3 * 1000 * 10000;
                     SpeedToBase();
-                    GameController.Score.AddScore(ComboScore);
+                    score = ComboScore;
+                    scoreX = AccuratePosition.x;
+                    scoreY = (int) (AccuratePosition.y + 3.333 * Map.LENGTH_CELL);
+                    GameController.Score.AddScore(score);
                 }
             if (OldAnimations != null)
             {
@@ -164,6 +178,12 @@ namespace PacMan
                 else if (differenceTimeInSeconds > TimeToReminderEndBlueFear)
                     ToReminderEndBlueFear();
             }
+        }
+
+        public void OnPaint(PaintEventArgs e)
+        {
+            if (DateTime.Now.Ticks < startScoreSpawn + durationScore)
+                e.Graphics.DrawString(score.ToString(), font, brush, scoreX, scoreY);
         }
     }
 }
