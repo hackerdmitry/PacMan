@@ -17,7 +17,7 @@ namespace PacMan
 
     public class GameController
     {
-        public Map Map { get; }
+        public Map Map { get; private set; }
         public Score Score { get; }
         public Footer Footer { get; }
         public PacManWindow PacManWindow { get; }
@@ -31,18 +31,18 @@ namespace PacMan
         readonly Timer timer;
         bool isDisposed;
 
-        public GameController(PacManWindow pacManWindow, Map map, Timer timer)
+        public GameController(PacManWindow pacManWindow, Timer timer)
         {
             PacManWindow = pacManWindow;
-            Map = map;
+            Level = 0;
+            NextLevel();
             Score = new Score(this);
             Footer = new Footer(this);
             this.timer = timer;
-            Level = 1;
             SizeMap = new Size(Map.WidthCountCell * Map.LENGTH_CELL,
                                Map.HeightCountCell * Map.LENGTH_CELL);
             timer.Tick += TimerTick;
-            CreateCreatures(map);
+            CreateCreatures(Map);
         }
 
         void CreateCreatures(Map map)
@@ -61,6 +61,12 @@ namespace PacMan
         {
             foreach (Creature creature in creatures)
                 creature.Move();
+        }
+
+        public void NextLevel()
+        {
+            Map = PacManWindow.ClearMap();
+            Level++;
         }
 
         public Position Move(Creature creature, Direction direction)
@@ -166,12 +172,19 @@ namespace PacMan
             e.Graphics.ResetTransform();
         }
 
-        public void Dispose()
+        public void DisposeWithDiePlayer()
         {
             timer.Tick -= TimerTick;
             creatures.ForEach(x => x.timer.Stop());
             Player.timer.Start();
             Player.Die();
+            isDisposed = true;
+        }
+
+        public void Dispose()
+        {
+            timer.Tick -= TimerTick;
+            creatures.ForEach(x => x.timer.Stop());
             isDisposed = true;
         }
 

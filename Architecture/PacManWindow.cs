@@ -26,6 +26,15 @@ namespace PacMan
             MaximizeBox = false;
             Text = "PacMan";
 
+            GameController = new GameController(this, GetTimer());
+            Width = Map.LENGTH_CELL * GameController.Map.WidthCountCell + frameSize.Width;
+            Height = Map.LENGTH_CELL * GameController.Map.HeightCountCell + frameSize.Height +
+                     GameController.Score.Height + GameController.Footer.Height;
+            StartPosition = FormStartPosition.CenterScreen;
+        }
+
+        public Map ClearMap()
+        {
             string[] notParsedFields = new StreamReader($"{FolderLevelPath}/fields.txt").ReadToEnd()
                 .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();
             string[] notParsedDots = new StreamReader($"{FolderLevelPath}/dots.txt").ReadToEnd()
@@ -38,11 +47,7 @@ namespace PacMan
                     charFields[i, j] = notParsedFields[i][j];
                     charDots[i, j] = notParsedDots[i][j];
                 }
-            GameController = new GameController(this, new Map(charFields, charDots, this), GetTimer());
-            Width = Map.LENGTH_CELL * GameController.Map.WidthCountCell + frameSize.Width;
-            Height = Map.LENGTH_CELL * GameController.Map.HeightCountCell + frameSize.Height +
-                     GameController.Score.Height + GameController.Footer.Height;
-            StartPosition = FormStartPosition.CenterScreen;
+            return new Map(charFields, charDots, this);
         }
 
         Timer GetTimer()
@@ -62,7 +67,7 @@ namespace PacMan
 
         public void Restart()
         {
-            GameController.Dispose();
+            GameController.DisposeWithDiePlayer();
         }
     }
 }

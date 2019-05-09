@@ -40,10 +40,16 @@ namespace PacMan
                         directions.ForEach(x => MakeDotRay(new Position(i, j), x));
         }
 
-        public void EatDots(IEnumerable<KeyValuePair<Position,IDots>> eatenDots)
+        public void EatDots(IEnumerable<KeyValuePair<Position,IDots>> eatenDots, GameController gameController)
         {
             foreach (KeyValuePair<Position, IDots> eatenDot in eatenDots)
                 dots.Remove(eatenDot.Key);
+            if (dots.Count == 0)
+            {
+                gameController.NextLevel();
+                gameController.Dispose();
+                gameController.Restart();
+            }
         }
 
         void MakeDotRay(Position start, Position direction)

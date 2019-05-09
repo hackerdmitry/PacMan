@@ -36,6 +36,9 @@ namespace PacMan
                                   Map.LENGTH_CELL * 9.125f, 0);
             e.Graphics.DrawString(highScore.ToString(), font, brush, 
                                   Map.LENGTH_CELL * (16.125f - highScore.ToString().Length), Map.LENGTH_CELL);
+            string gameControllerLevel = gameController.Level + " LVL";
+            e.Graphics.DrawString(gameControllerLevel, font, brush, 
+                                  Map.LENGTH_CELL * (24f - gameControllerLevel.Length), Map.LENGTH_CELL);
         }
     }
 }

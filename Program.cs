@@ -13,6 +13,7 @@ namespace PacMan
             {
                 restart = false;
                 Application.Run(new PacManWindow("../../Levels/StandartMap"));
+//                Application.Run(new PacManWindow("../../Levels/Demo"));
             }
         }
     }

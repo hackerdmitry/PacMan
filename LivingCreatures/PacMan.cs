@@ -55,7 +55,7 @@ namespace PacMan
                     return difPos.Length() < Speed;
                 })
                 .ToList();
-            GameController.Map.MapDots.EatDots(eatenDots);
+            GameController.Map.MapDots.EatDots(eatenDots, GameController);
             eatedDots += eatenDots.Count;
             if (eatenDots.Count != 0) GameController.Map.InformFruits(eatedDots);
             eatenDots.ForEach(x =>

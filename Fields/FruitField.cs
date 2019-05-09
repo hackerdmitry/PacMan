@@ -19,21 +19,27 @@ namespace PacMan
 
         public FruitField(int x, int y) : base(x, y) { }
 
-        static readonly Bitmap[] fruits =
+        static readonly Fruit[] fruits =
         {
-            new Bitmap("../../Pictures/Fruits/Cherry.png"),
-            new Bitmap("../../Pictures/Fruits/Strawberry.png"),
-            new Bitmap("../../Pictures/Fruits/Orange.png"),
-            new Bitmap("../../Pictures/Fruits/Cherry.png"),
-            new Bitmap("../../Pictures/Fruits/Cherry.png"),
-            new Bitmap("../../Pictures/Fruits/Cherry.png"),
-            new Bitmap("../../Pictures/Fruits/Cherry.png"),
+            new Fruit(new Bitmap("../../Pictures/Fruits/Cherry.png"), 100), 
+            new Fruit(new Bitmap("../../Pictures/Fruits/Strawberry.png"), 300), 
+            new Fruit(new Bitmap("../../Pictures/Fruits/Orange.png"), 500), 
+            new Fruit(new Bitmap("../../Pictures/Fruits/Apple.png"), 700), 
+            new Fruit(new Bitmap("../../Pictures/Fruits/Melon.png"), 1000), 
+            new Fruit(new Bitmap("../../Pictures/Fruits/Galaxian.png"), 2000), 
+            new Fruit(new Bitmap("../../Pictures/Fruits/Bell.png"), 3000),
+            new Fruit(new Bitmap("../../Pictures/Fruits/Key.png"), 5000)
         };
 
-        public Fruit GetFruit(GameController gameController)
+        static Fruit GetFruit(GameController gameController)
         {
-            if (gameController.Level == 1) return new Fruit(fruits[0], 100);
-            return new Fruit(fruits[1], 300);
+            if (gameController.Level == 1) return fruits[0];
+            if (gameController.Level == 2) return fruits[1];
+            if (gameController.Level <= 4) return fruits[2];
+            if (gameController.Level <= 6) return fruits[3];
+            if (gameController.Level <= 8) return fruits[4];
+            if (gameController.Level <= 10) return fruits[5];
+            return gameController.Level <= 12 ? fruits[6] : fruits[7];
         }
 
         public void Inform(int informedScore, GameController gameController)
