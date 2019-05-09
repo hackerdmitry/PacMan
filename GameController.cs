@@ -22,12 +22,13 @@ namespace PacMan
         public Footer Footer { get; }
         public PacManWindow PacManWindow { get; }
 
-        public readonly List<Creature> creatures;
+        List<Creature> creatures;
 
-        public readonly PacMan Player;
+        public PacMan Player;
 
         public Size SizeMap { get; }
-        Timer timer;
+        readonly Timer timer;
+        bool isDisposed;
 
         public GameController(PacManWindow pacManWindow, Map map, Timer timer)
         {
@@ -39,6 +40,11 @@ namespace PacMan
             SizeMap = new Size(Map.WidthCountCell * Map.LENGTH_CELL,
                                Map.HeightCountCell * Map.LENGTH_CELL);
             timer.Tick += TimerTick;
+            CreateCreatures(map);
+        }
+
+        void CreateCreatures(Map map)
+        {
             //TODO брать позиции существ из файла
             Player = new PacMan(this, new Position(11, 16) * Map.LENGTH_CELL);
             creatures = new List<Creature>
@@ -136,6 +142,7 @@ namespace PacMan
         {
             Map.OnPaint(e);
             Score.OnPaint(e);
+            Footer.OnPaint(e);
             foreach (Creature creature in creatures)
             {
                 if (!creature.timer.Enabled) continue;
@@ -163,8 +170,22 @@ namespace PacMan
             creatures.ForEach(x => x.timer.Stop());
             Player.timer.Start();
             Player.Die();
+            isDisposed = true;
         }
 
-        public void StopTimer() => timer.Stop();
+        public void Restart()
+        {
+            if (!isDisposed) return;
+            Player.timer.Stop();
+            timer.Tick += TimerTick;
+            CreateCreatures(Map);
+            isDisposed = false;
+        }
+
+        public void StopTimer()
+        {
+            timer.Stop();
+            Program.restart = true;
+        }
     }
 }

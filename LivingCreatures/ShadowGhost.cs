@@ -21,7 +21,7 @@ namespace PacMan
 
         public override void Move()
         {
-            Target = Map.PacManWindow.GameController.creatures[0].AccuratePosition / Map.LENGTH_CELL;
+            Target = Map.PacManWindow.GameController.Player.AccuratePosition / Map.LENGTH_CELL;
             base.Move();
             if (OldAnimations == null)
                 animation = animations[(int) CurrentDirection];

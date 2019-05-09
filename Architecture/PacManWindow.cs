@@ -63,7 +63,6 @@ namespace PacMan
         public void Restart()
         {
             GameController.Dispose();
-            Program.restart = true;
         }
     }
 }

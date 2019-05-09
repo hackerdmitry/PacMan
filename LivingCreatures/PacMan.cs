@@ -13,11 +13,11 @@ namespace PacMan
         bool isDied;
 
         static readonly Bitmap[] diedPacman =
-            Directory.GetFiles("../../Pictures/PlayerDied").Select(x => new Bitmap(x)).ToArray();
+            Directory.GetFiles("../../Pictures/Player/Died").Select(x => new Bitmap(x)).ToArray();
 
         public PacMan(GameController gameController, Position accuratePostion) :
             base(gameController, accuratePostion,
-                 Directory.GetFiles("../../Pictures/Player").Select(x => new Bitmap(x)).ToArray(),
+                 Directory.GetFiles("../../Pictures/Player/Run").Select(x => new Bitmap(x)).ToArray(),
                  50) =>
             GameController.PacManWindow.KeyDown += ChangeDirection;
 
@@ -28,8 +28,14 @@ namespace PacMan
                 if (!isDied) return base.Bitmap;
                 if (iAnimation == diedPacman.Length - 1)
                 {
-                    GameController.StopTimer();
-                    GameController.PacManWindow.Close();
+                    isDied = false;
+                    GameController.Restart();
+                    GameController.Footer.LoseHealth();
+                    if (GameController.Footer.GetHealth() <= 0)
+                    {
+                        GameController.StopTimer();
+                        GameController.PacManWindow.Close();
+                    }
                 }
                 return animation[iAnimation];
             }

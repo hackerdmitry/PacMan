@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PacMan
@@ -25,13 +26,8 @@ namespace PacMan
             WidthCountCell = charFields.GetLength(1);
             HeightCountCell = charFields.GetLength(0);
             SizeCountCells = new Size(WidthCountCell, HeightCountCell);
-            //TODO костыль
-            bases = new[]
-            {
-                new Position(10, 10),
-                new Position(12, 10)
-            };
             InitMapFields(charFields);
+            bases = MapFields.Where(x => x is SpawnField).Select(x => new Position(x.Y, x.X)).ToArray();
             MapDots = new MapDots(charDots, this);
         }
 

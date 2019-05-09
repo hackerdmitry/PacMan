@@ -90,13 +90,10 @@ namespace PacMan
                 GameController.GetDirection(BreadthFirstSearch.FindNextPosition(Map, anotherPos, Target, this) -
                                             anotherPos);
             base.Move();
-            if ((Map.PacManWindow.GameController.creatures[0].AccuratePosition - AccuratePosition).Length() <
+            if ((Map.PacManWindow.GameController.Player.AccuratePosition - AccuratePosition).Length() <
                 Map.LENGTH_CELL)
                 if (OldAnimations == null)
-                {
-                    GameController.Footer.LoseHealth();
                     GameController.PacManWindow.Restart();
-                }
                 else if (!toBase)
                 {
                     toBase = true;

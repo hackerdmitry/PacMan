@@ -19,7 +19,12 @@ namespace PacMan
             Height = Map.LENGTH_CELL * 3;
         }
 
-        public void AddScore(int score) => this.score += score;
+        public void AddScore(int score)
+        {
+            for (int i = 0; i < (this.score + score) / 10000 - this.score / 10000; i++)
+                gameController.Footer.AddHealth();
+            this.score += score;
+        }
 
         public void OnPaint(PaintEventArgs e)
         {
