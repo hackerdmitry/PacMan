@@ -9,7 +9,7 @@ namespace PacMan
         protected GameController GameController { get; }
         public Direction CurrentDirection { get; set; }
 
-        protected const float STANDART_SPEED = 3f;
+        public const float STANDART_SPEED = 3f;
         public Position AccuratePosition { get; private set; }
         Position lastAccuratePosition;
         protected Direction desiredDirection;

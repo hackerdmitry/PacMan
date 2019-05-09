@@ -21,12 +21,12 @@ namespace PacMan
 
         static readonly Fruit[] fruits =
         {
-            new Fruit(new Bitmap("../../Pictures/Fruits/Cherry.png"), 100), 
-            new Fruit(new Bitmap("../../Pictures/Fruits/Strawberry.png"), 300), 
-            new Fruit(new Bitmap("../../Pictures/Fruits/Orange.png"), 500), 
-            new Fruit(new Bitmap("../../Pictures/Fruits/Apple.png"), 700), 
-            new Fruit(new Bitmap("../../Pictures/Fruits/Melon.png"), 1000), 
-            new Fruit(new Bitmap("../../Pictures/Fruits/Galaxian.png"), 2000), 
+            new Fruit(new Bitmap("../../Pictures/Fruits/Cherry.png"), 100),
+            new Fruit(new Bitmap("../../Pictures/Fruits/Strawberry.png"), 300),
+            new Fruit(new Bitmap("../../Pictures/Fruits/Orange.png"), 500),
+            new Fruit(new Bitmap("../../Pictures/Fruits/Apple.png"), 700),
+            new Fruit(new Bitmap("../../Pictures/Fruits/Melon.png"), 1000),
+            new Fruit(new Bitmap("../../Pictures/Fruits/Galaxian.png"), 2000),
             new Fruit(new Bitmap("../../Pictures/Fruits/Bell.png"), 3000),
             new Fruit(new Bitmap("../../Pictures/Fruits/Key.png"), 5000)
         };
@@ -59,18 +59,19 @@ namespace PacMan
             if (DateTime.Now.Ticks < startFruitSpawn + durationFruit)
                 if (!pickedUp)
                     if ((gameController.Player.AccuratePosition - new Position(Y, X) * Map.LENGTH_CELL).Length() <
-                        gameController.Player.Speed)
+                        Creature.STANDART_SPEED * 1.5f)
                     {
                         pickedUp = true;
                         startFruitSpawn = DateTime.Now.Ticks;
                         durationFruit = 3 * 1000 * 10000;
                         gameController.Score.AddScore(fruit.score);
+                        gameController.Footer.AddFruit(fruit);
                     }
                     else
                         gameController.DrawImageRegardingMapCells(e, fruit.fruit, new Position(Y, X));
                 else
                     e.Graphics.DrawString(fruit.score.ToString(), font, brush,
-                                          Y * Map.LENGTH_CELL, (int)((X + 3.333) * Map.LENGTH_CELL));
+                                          Y * Map.LENGTH_CELL, (int) ((X + 3.333) * Map.LENGTH_CELL));
         }
 
         public class Fruit

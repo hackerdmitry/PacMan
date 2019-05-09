@@ -15,7 +15,7 @@ namespace PacMan
 
         readonly float[] flashesBeforeBlueTime =
         {
-            5, 5, 5, 5, 5, 5, 5, 5, 3, 5, 5, 3, 3, 5, 3, 3, float.MaxValue, 3, float.MaxValue
+            5, 5, 5, 5, 5, 5, 5, 5, 3, 5, 5, 3, 3, 5, 3, 3, 0, 3, 0
         };
 
         readonly float[] ghostBlueTime =
