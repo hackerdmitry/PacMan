@@ -17,9 +17,21 @@ namespace PacMan
 
         bool toBase;
 
-        long startTicksBlueFear;
+        static long startTicksBlueFear;
         float oldSpeed;
         protected Bitmap[] OldAnimations;
+
+        const int START_COMBO_SCORE = 100;
+        static int comboScore = START_COMBO_SCORE;
+        static int countGhostsInBlueFear;
+        public static int ComboScore
+        {
+            get
+            {
+                comboScore *= 2;
+                return comboScore;
+            }
+        }
 
         static readonly Bitmap[] blueFearAnimations =
             Directory.GetFiles("../../Pictures/Ghost/BlueFear").Select(x => new Bitmap(x)).ToArray();
@@ -54,9 +66,12 @@ namespace PacMan
         public void ToBlueFear()
         {
             if (toBase) return;
+            countGhostsInBlueFear++;
             startTicksBlueFear = DateTime.Now.Ticks;
             OldAnimations = animation;
             animation = blueFearAnimations;
+            oldSpeed = Speed;
+            Speed /= 2;
         }
 
         void ToReminderEndBlueFear()
@@ -68,8 +83,12 @@ namespace PacMan
         void OffBlueFear()
         {
             if (toBase) return;
+            countGhostsInBlueFear--;
+            if (countGhostsInBlueFear == 0)
+                comboScore = START_COMBO_SCORE;
             animation = OldAnimations;
             OldAnimations = null;
+            Speed = oldSpeed;
         }
 
         public override void Move()
@@ -97,15 +116,18 @@ namespace PacMan
                 else if (!toBase)
                 {
                     toBase = true;
-                    oldSpeed = Speed;
                     Speed = SpeedInBlueFear;
+                    GameController.Score.AddScore(ComboScore);
                 }
             if (OldAnimations != null)
             {
                 long nowTicks = DateTime.Now.Ticks;
                 float differenceTimeInSeconds = (nowTicks - startTicksBlueFear) / 10000f / 1000f;
                 if (differenceTimeInSeconds > TimeInBlueFear)
+                {
                     OffBlueFear();
+                    comboScore = START_COMBO_SCORE;
+                }
                 else if (differenceTimeInSeconds > TimeToReminderEndBlueFear)
                     ToReminderEndBlueFear();
             }

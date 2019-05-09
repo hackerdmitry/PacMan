@@ -24,7 +24,8 @@ namespace PacMan
                 {'l', (x, y) => new SpawnLine(x, y)},
                 {' ', (x, y) => new SimpleField(x, y)},
                 {'0', (x, y) => new VoidField(x, y)},
-                {'r', (x, y) => new SpawnField(x, y)}
+                {'r', (x, y) => new SpawnField(x, y)},
+                {'f', (x, y) => new FruitField(x, y)}
             };
         }
 

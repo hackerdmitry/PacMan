@@ -21,6 +21,7 @@ namespace PacMan
         public Score Score { get; }
         public Footer Footer { get; }
         public PacManWindow PacManWindow { get; }
+        public int Level { get; private set; }
 
         List<Creature> creatures;
 
@@ -37,6 +38,7 @@ namespace PacMan
             Score = new Score(this);
             Footer = new Footer(this);
             this.timer = timer;
+            Level = 1;
             SizeMap = new Size(Map.WidthCountCell * Map.LENGTH_CELL,
                                Map.HeightCountCell * Map.LENGTH_CELL);
             timer.Tick += TimerTick;
@@ -46,7 +48,7 @@ namespace PacMan
         void CreateCreatures(Map map)
         {
             //TODO брать позиции существ из файла
-            Player = new PacMan(this, new Position(11, 16) * Map.LENGTH_CELL);
+            Player = new PacMan(this, new Position(11, 16) * Map.LENGTH_CELL, 0);
             creatures = new List<Creature>
             {
                 Player,

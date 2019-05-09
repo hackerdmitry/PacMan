@@ -11,15 +11,19 @@ namespace PacMan
     {
         public override float Speed { get; protected set; } = 3f;
         bool isDied;
+        int eatedDots;
 
         static readonly Bitmap[] diedPacman =
             Directory.GetFiles("../../Pictures/Player/Died").Select(x => new Bitmap(x)).ToArray();
 
-        public PacMan(GameController gameController, Position accuratePostion) :
+        public PacMan(GameController gameController, Position accuratePostion, int eatedDots) :
             base(gameController, accuratePostion,
                  Directory.GetFiles("../../Pictures/Player/Run").Select(x => new Bitmap(x)).ToArray(),
-                 50) =>
+                 50)
+        {
             GameController.PacManWindow.KeyDown += ChangeDirection;
+            this.eatedDots = eatedDots;
+        }
 
         public override Bitmap Bitmap
         {
@@ -52,6 +56,8 @@ namespace PacMan
                 })
                 .ToList();
             GameController.Map.MapDots.EatDots(eatenDots);
+            eatedDots += eatenDots.Count;
+            if (eatenDots.Count != 0) GameController.Map.InformFruits(eatedDots);
             eatenDots.ForEach(x =>
             {
                 GameController.Score.AddScore(x.Value.Value);

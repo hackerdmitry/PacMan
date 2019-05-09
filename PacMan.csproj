@@ -52,6 +52,7 @@
     <Compile Include="Dots\Dot.cs" />
     <Compile Include="Dots\Energizer.cs" />
     <Compile Include="Dots\MapDots.cs" />
+    <Compile Include="Fields\FruitField.cs" />
     <Compile Include="Fields\MapFields.cs" />
     <Compile Include="Fields\SimpleField.cs" />
     <Compile Include="Fields\SpawnField.cs" />
