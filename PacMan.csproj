@@ -107,6 +107,14 @@
     <Content Include="Pictures\Fields\SimpleField.png" />
     <Content Include="Pictures\Fields\SimpleField2.png" />
     <Content Include="Pictures\Fields\VoidField.png" />
+    <Content Include="Pictures\Fruits\Apple.png" />
+    <Content Include="Pictures\Fruits\Bell.png" />
+    <Content Include="Pictures\Fruits\Cherry.png" />
+    <Content Include="Pictures\Fruits\Galaxian.png" />
+    <Content Include="Pictures\Fruits\Key.png" />
+    <Content Include="Pictures\Fruits\Melon.png" />
+    <Content Include="Pictures\Fruits\Orange.png" />
+    <Content Include="Pictures\Fruits\Strawberry.png" />
     <Content Include="Pictures\Ghost\BlueFearEnd\frame_1.png" />
     <Content Include="Pictures\Ghost\BlueFearEnd\frame_2.png" />
     <Content Include="Pictures\Ghost\BlueFearEnd\frame_3.png" />
