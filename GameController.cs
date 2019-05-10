@@ -47,14 +47,26 @@ namespace PacMan
 
         void CreateCreatures(Map map)
         {
-            //TODO брать позиции существ из файла
-            Player = new PacMan(this, new Position(11, 16) * Map.LENGTH_CELL, 0);
-            creatures = new List<Creature>
+            string[] notParsedCreatures = new StreamReader($"{map.PacManWindow.FolderLevelPath}/creatures.txt")
+                .ReadToEnd()
+                .Split('\n', '\r').Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            Dictionary<string, Func<int, int, Creature>> dictionaryCreatures =
+                new Dictionary<string, Func<int, int, Creature>>
+                {
+                    {"p", (x, y) => new PacMan(this, new Position(x, y) * Map.LENGTH_CELL)},
+                    {"s", (x, y) => new ShadowGhost(this, new Position(x, y) * Map.LENGTH_CELL, map)},
+                    {"r", (x, y) => new RoflGhost(this, new Position(x, y) * Map.LENGTH_CELL, map)}
+                };
+            creatures = new List<Creature>();
+            foreach (string creature in notParsedCreatures)
             {
-                Player,
-                new ShadowGhost(this, new Position(21, 5) * Map.LENGTH_CELL, map),
-                new RoflGhost(this, new Position(21, 5) * Map.LENGTH_CELL, map)
-            };
+                string[] data = creature.Split();
+                creatures.Add(dictionaryCreatures[data[0]]
+                              ((int) float.Parse(data[1]),
+                               (int) float.Parse(data[2])));
+            }
+            Player = (PacMan) (creatures.First(x => x is PacMan) ??
+                               new PacMan(this, new Position(0, 0) * Map.LENGTH_CELL));
         }
 
         void TimerTick(object sender, EventArgs args)

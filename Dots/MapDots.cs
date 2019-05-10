@@ -52,6 +52,8 @@ namespace PacMan
             }
         }
 
+        public int CountDots() => dots.Count;
+
         void MakeDotRay(Position start, Position direction)
         {
             Position startDir = start + direction;

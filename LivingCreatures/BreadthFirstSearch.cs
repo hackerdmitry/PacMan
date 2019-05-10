@@ -21,7 +21,8 @@ namespace PacMan
                 if (map.MapFields[point.x, point.y].IsWall(creature) ||
                     visited.Contains(point)) continue;
                 visited.Add(point);
-                if (point.Equals(target)) return singlyLinkedList.First.Next?.Value ?? target;
+                if (point.Equals(target)) 
+                    return singlyLinkedList.First.Next?.Value ?? target;
                 for (int dy = -1; dy <= 1; dy++)
                     for (int dx = -1; dx <= 1; dx++)
                         if ((dx == 0 || dy == 0) && !(dx == 0 && dy == 0))

@@ -21,8 +21,9 @@ namespace PacMan
 
         Position(float x, float y)
         {
-            this.x = (int)x;
-            this.y = (int)y;
+            // в идеале заменить на то что в комментариях, но тогда появляется 371928371 багов
+            this.x = (int) x;// Math.Round(x);
+            this.y = (int) y;// Math.Round(y);
             modX = x - this.x;
             modY = y - this.y;
         }

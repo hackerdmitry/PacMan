@@ -14,19 +14,20 @@ namespace PacMan
         int eatedDots;
 
         long startEatDot;
-        const long durationEatDot = 500 * 10000;
+        const long DURATION_EAT_DOT = 500 * 10000;
         bool isEatDot;
+        Map map;
 
         static readonly Bitmap[] diedPacman =
             Directory.GetFiles("../../Pictures/Player/Died").Select(x => new Bitmap(x)).ToArray();
 
-        public PacMan(GameController gameController, Position accuratePostion, int eatedDots) :
+        public PacMan(GameController gameController, Position accuratePostion) :
             base(gameController, accuratePostion,
                  Directory.GetFiles("../../Pictures/Player/Run").Select(x => new Bitmap(x)).ToArray(),
                  50)
         {
+            map = GameController.Map;
             GameController.PacManWindow.KeyDown += ChangeDirection;
-            this.eatedDots = eatedDots;
             NormalSpeed();
         }
 
@@ -52,24 +53,24 @@ namespace PacMan
 
         public override void Move()
         {
-            if (isEatDot && startEatDot + durationEatDot < DateTime.Now.Ticks)
+            if (isEatDot && startEatDot + DURATION_EAT_DOT < DateTime.Now.Ticks)
             {
                 isEatDot = false;
                 NormalSpeed();
             }
             base.Move();
-            List<KeyValuePair<Position, IDots>> eatenDots = GameController.Map.MapDots
+            List<KeyValuePair<Position, IDots>> eatenDots = map.MapDots
                 .Where(x =>
                 {
                     Position difPos = AccuratePosition - x.Key;
-                    return difPos.Length() < STANDART_SPEED * 1.5f;
+                    return difPos.Length() < STANDART_SPEED * 15.5f;
                 })
                 .ToList();
-            GameController.Map.MapDots.EatDots(eatenDots, GameController);
+            map.MapDots.EatDots(eatenDots, GameController);
             eatedDots += eatenDots.Count;
-            if (eatenDots.Count != 0)
+            if (eatenDots.Count != 0 && !PlayAnyway)
             {
-                GameController.Map.InformFruits(eatedDots);
+                map.InformFruits(eatedDots);
                 startEatDot = DateTime.Now.Ticks;
                 SpeedEatDot();
                 isEatDot = true;
@@ -79,7 +80,7 @@ namespace PacMan
                 GameController.Score.AddScore(x.Value.Value);
                 x.Value.Act(GameController);
             });
-            GameController.PacManWindow.Text = $@"PacMan {AccuratePosition.x} {AccuratePosition.y}";
+//            GameController.PacManWindow.Text = $@"PacMan {AccuratePosition.x} {AccuratePosition.y}";
         }
 
         void ChangeDirection(object sender, KeyEventArgs e)
@@ -113,7 +114,7 @@ namespace PacMan
             else NormalSpeed();
         }
 
-        public void SpeedEatDot()
+        void SpeedEatDot()
         {
             if (GameController.Level == 1) Speed = STANDART_SPEED * 0.71f;
             else if (GameController.Level <= 4) Speed = STANDART_SPEED * 0.79f;

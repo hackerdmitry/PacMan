@@ -68,6 +68,8 @@ namespace PacMan
         protected Ghost(GameController gameController, Position accuratePostion, Bitmap[] animation, Map map) : base(
             gameController, accuratePostion, animation, 100)
         {
+            countGhostsInBlueFear = 0;
+            comboScore = START_COMBO_SCORE;
             Map = map;
             Target = new Position(0, 5);
             int iBlueTime = Math.Min(gameController.Level, ghostBlueTime.Length) - 1;
@@ -88,7 +90,8 @@ namespace PacMan
         public void ToBlueFear()
         {
             if (toBase) return;
-            countGhostsInBlueFear++;
+            if (OldAnimations == null) 
+                countGhostsInBlueFear++;
             GameController.Player.SpeedInFear();
             startTicksBlueFear = DateTime.Now.Ticks;
             OldAnimations = animation;
@@ -135,6 +138,7 @@ namespace PacMan
 
         public override void Move()
         {
+            GameController.PacManWindow.Text = $"{countGhostsInBlueFear} {comboScore}";
             if (toBase)
             {
                 Target = Map.Base;
@@ -142,7 +146,6 @@ namespace PacMan
                 if ((AccuratePosition - Map.Base * Map.LENGTH_CELL).Length() < Map.LENGTH_CELL)
                 {
                     toBase = false;
-                    NormalSpeed();
                     OffBlueFear();
                 }
             }
